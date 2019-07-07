@@ -135,9 +135,6 @@ function BeStride_Logic:GroundMountButton()
 	elseif self:NeedsChauffeur() then
 		self:DismountAndExit()
 		return BeStride_Mount:Chauffeur()
-	elseif self:IsHerbalismAndCanRobot() then
-		self:DismountAndExit()
-		return BeStride_Mount:Robot()
 	elseif self:IsDeathKnightAndSpecial() then
 		self:DismountAndExit()
 		return self:DeathKnight()
@@ -195,6 +192,9 @@ function BeStride_Logic:GroundMountButton()
 	elseif IsSwimming() and IsOutdoors() then
 		self:DismountAndExit()
 		return BeStride_Mount:Swimming()
+	elseif self:IsHerbalismAndCanRobot() then
+		self:DismountAndExit()
+		return BeStride_Mount:Robot()
 	elseif IsOutdoors() then
 		return BeStride_Mount:Ground()
 	else
