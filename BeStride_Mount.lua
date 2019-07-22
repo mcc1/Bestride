@@ -207,6 +207,10 @@ function BeStride_Mount:DeathKnightWraithWalk()
 	return self:MountSpell(BeStride:SpellToName(212552))
 end
 
+function BeStride_Mount:DeathKnightDeathAdvance()
+	return self:MountSpell(BeStride:SpellToName(48265))
+end
+
 function BeStride_Mount:DemonHunterFelRush()
 	return self:MountSpell(BeStride:SpellToName(195072))
 end

@@ -1016,6 +1016,14 @@ function BeStride_Logic:DeathKnightCanWraithWalk()
 	end
 end
 
+function BeStride_Logic:DeathKnightCanDeathAdvance()
+	if IsUsableSpell(48265) then
+		return true
+	else
+		return false
+	end
+end
+
 -- ------------------- --
 -- Demon Hunter Spells --
 -- ------------------- --
