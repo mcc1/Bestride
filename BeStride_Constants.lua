@@ -136,7 +136,7 @@ BeStride_Constants = {
 					[875] = {
 						requires = 278833,
 					},
-					[876] = {
+					[876] = {                                                 
 						requires = 278833,
 					},
 					[619] = {
@@ -164,6 +164,9 @@ BeStride_Constants = {
 					},
 					[122] = {
 						blocked = true,
+					},
+					[1355] = {
+						requires = 278833,
 					},
 				},
 			},
