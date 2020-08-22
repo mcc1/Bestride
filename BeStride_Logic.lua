@@ -19,6 +19,12 @@ function BeStride_Logic:Regular()
 	elseif self:NeedsChauffeur() then
 		self:DismountAndExit()
 		return BeStride_Mount:Chauffeur()
+	elseif self:IsDruidAndSpecial() then
+		self:DismountAndExit()
+		return self:Druid()
+	elseif self:IsRogueAndSpecial() then
+		self:DismountAndExit()
+		return self:Rogue()
 	elseif self:IsHerbalismAndCanRobot() then
 		self:DismountAndExit()
 		return BeStride_Mount:Robot()
@@ -28,9 +34,6 @@ function BeStride_Logic:Regular()
 	elseif self:IsDemonHunterAndSpecial() then
 		self:DismountAndExit()
 		return self:DemonHunter()
-	elseif self:IsDruidAndSpecial() then
-		self:DismountAndExit()
-		return self:Druid()
 	elseif self:IsMageAndSpecial() then
 		self:DismountAndExit()
 		return self:Mage()
@@ -46,9 +49,6 @@ function BeStride_Logic:Regular()
 	elseif self:IsShamanAndSpecial() then
 		self:DismountAndExit()
 		return self:Shaman()
-	elseif self:IsRogueAndSpecial() then
-		self:DismountAndExit()
-		return self:Rogue()
 	elseif self:IsLoanedMount() then
 		self:DismountAndExit()
 		return BeStride_Mount:Loaned()
