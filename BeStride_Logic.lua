@@ -19,6 +19,9 @@ function BeStride_Logic:Regular()
 	elseif self:NeedsChauffeur() then
 		self:DismountAndExit()
 		return BeStride_Mount:Chauffeur()
+	elseif self:CanBroom() then
+		self:DismountAndExit()
+		return BeStride_Mount:Broom()
 	elseif self:IsDruidAndSpecial() then
 		self:DismountAndExit()
 		return self:Druid()
@@ -52,9 +55,6 @@ function BeStride_Logic:Regular()
 	elseif self:IsLoanedMount() then
 		self:DismountAndExit()
 		return BeStride_Mount:Loaned()
-	elseif self:CanBroom() then
-		self:DismountAndExit()
-		return BeStride_Mount:Broom()
 	elseif self:IsSpecialZone() then
 		self:DismountAndExit()
 		return BeStride_Mount:SpecialZone()
@@ -818,7 +818,7 @@ function BeStride_Logic:CanRepair()
 end
 
 function BeStride_Logic:CanBroom()
-	if GetItemCount(37011, false) > 0 and not BeStride_Logic:IsCombat() and BeStride_Logic:CanBroomSetting() == true then
+	if IsOutdoors() and GetItemCount(37011, false) > 0 and not BeStride_Logic:IsCombat() and BeStride_Logic:CanBroomSetting() == true then
 		return true
 	end
 end
