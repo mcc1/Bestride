@@ -24,6 +24,7 @@ end
 
 function BeStride_Logic:Regular()
 	-- Check if we are mounted first
+	-- BeStride_Debug:Info(tostring(self:IsInMawAndSpecial()))
 	if IsMounted() and self:NeedsChauffeur() then
 		self:DismountAndExit()
 		return BeStride_Mount:Chauffeur()
@@ -72,6 +73,9 @@ function BeStride_Logic:Regular()
 	elseif self:IsSpecialZone() then
 		self:DismountAndExit()
 		return BeStride_Mount:SpecialZone()
+	elseif self:IsInMawAndSpecial() then
+		self:DismountAndExit()
+		return self:InMaw()
 	elseif self:IsRepairable() then
 		self:DismountAndExit()
 		return BeStride_Mount:Repair()
@@ -182,6 +186,9 @@ function BeStride_Logic:GroundMountButton()
 	elseif self:IsSpecialZone() then
 		self:DismountAndExit()
 		return BeStride_Mount:SpecialZone()
+	elseif self:IsInMawAndSpecial() then
+		self:DismountAndExit()
+		return self:InMaw()
 	elseif self:IsRepairable() then
 		self:DismountAndExit()
 		return BeStride_Mount:Repair()
@@ -269,6 +276,8 @@ function BeStride_Logic:Combat()
 		return BeStride_Mount:ShamanGhostWolf()
 	elseif self:IsSpecialZone() then
 		return BeStride_Mount:SpecialZone()
+	elseif self:IsInMawAndSpecial() then
+		return self:InMaw()
 	end
 end
 
@@ -575,6 +584,30 @@ function BeStride_Logic:IsUnderwater()
 		end
 	else
 		return false
+	end
+end
+
+function BeStride_Logic:IsInMawAndSpecial()
+	local mapID = C_Map.GetBestMapForUnit("player")
+	if mapID == 1543 then
+		if IsUsableSpell(312762) then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+function BeStride_Logic:InMaw()
+	if IsUsableSpell(312762) and not self:IsCombat() then
+		return BeStride_Mount:MawMounts()
+	elseif self:IsNightFaeAndCanSoulShape() then
+		return BeStride_Mount:SoulShape()
+	else
+		BeStride_Debug:Error('nothing can use')
+		return nil
 	end
 end
 

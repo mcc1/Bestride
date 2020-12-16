@@ -199,8 +199,20 @@ function BeStride_Mount:Robot()
 	return self:MountSpell(BeStride:SpellToName(mounts[math.random(#mounts)]))
 end
 
-function BeStride_Mount:SoulHunter()
-	return self:MountSpell(BeStride:SpellToName(312762))
+function BeStride_Mount:MawMounts()
+	local mounts={}
+	
+	if IsUsableSpell(312762) then
+		table.insert(mounts,312762)
+	end
+	if IsUsableSpell(344577) then
+		table.insert(mounts,344577)
+	end
+	if IsUsableSpell(344578) then
+		table.insert(mounts,344578)
+	end
+
+	return self:MountSpell(BeStride:SpellToName(mounts[math.random(#mounts)]))
 end
 
 function BeStride_Mount:SoulShape()
