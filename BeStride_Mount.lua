@@ -199,6 +199,14 @@ function BeStride_Mount:Robot()
 	return self:MountSpell(BeStride:SpellToName(mounts[math.random(#mounts)]))
 end
 
+function BeStride_Mount:SoulHunter()
+	return self:MountSpell(BeStride:SpellToName(312762))
+end
+
+function BeStride_Mount:SoulShape()
+		return self:MountSpell(BeStride:SpellToName(310143))
+end
+
 function BeStride_Mount:Nagrand()
 	return self:MountSpell(BeStride:SpellToName(164222))
 end

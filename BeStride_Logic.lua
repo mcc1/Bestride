@@ -11,6 +11,17 @@ function BeStride_Logic:IsCombat()
 	end
 end
 
+function BeStride_Logic:IsAuraExist(a_id)
+	for i=1,40 do 
+		local name,_,_,_,_,expire,_,_,_,aura_id=UnitAura("player", i) 
+		if aura_id == a_id then
+			-- BeStride_Debug:Info(name.." remain time: "..remain)
+			return true
+		end
+	end
+	return false
+end
+
 function BeStride_Logic:Regular()
 	-- Check if we are mounted first
 	if IsMounted() and self:NeedsChauffeur() then
@@ -25,12 +36,12 @@ function BeStride_Logic:Regular()
 	elseif self:IsDruidAndSpecial() then
 		self:DismountAndExit()
 		return self:Druid()
+	elseif self:IsNightFaeAndCanSoulShape() then
+		self:DismountAndExit()
+		return BeStride_Mount:SoulShape()
 	elseif self:IsRogueAndSpecial() then
 		self:DismountAndExit()
 		return self:Rogue()
-	elseif self:IsHerbalismAndCanRobot() then
-		self:DismountAndExit()
-		return BeStride_Mount:Robot()
 	elseif self:IsDeathKnightAndSpecial() then
 		self:DismountAndExit()
 		return self:DeathKnight()
@@ -52,6 +63,9 @@ function BeStride_Logic:Regular()
 	elseif self:IsShamanAndSpecial() then
 		self:DismountAndExit()
 		return self:Shaman()
+	elseif self:IsHerbalismAndCanRobot() then
+		self:DismountAndExit()
+		return BeStride_Mount:Robot()
 	elseif self:IsLoanedMount() then
 		self:DismountAndExit()
 		return BeStride_Mount:Loaned()
@@ -229,7 +243,9 @@ function BeStride_Logic:PassengerMountButton(type)
 end
 
 function BeStride_Logic:Combat()
-	if self:IsDeathKnight() and BeStride:DBGet("settings.classes.deathknight.wraithwalk") then
+	if self:IsNightFaeAndCanSoulShape() then
+			return BeStride_Mount:SoulShape()
+	elseif self:IsDeathKnight() and BeStride:DBGet("settings.classes.deathknight.wraithwalk") then
 		return BeStride_Mount:DeathKnightWraithWalk()
 	elseif self:IsDemonHunter() and self:DemonHunterFelRush() then
 		return BeStride_Mount:DemonHunterFelRush()
@@ -542,7 +558,7 @@ function BeStride_Logic:IsMountable()
 		return true
 	elseif not self:IsFlyable() and IsOutdoors() then
 		return true
-	elseif not IsOutdoors() then
+	elseif IsIndoors() then
 		return false
 	else
 		return false
@@ -595,7 +611,7 @@ function BeStride_Logic:SpecialZone()
 end
 
 function BeStride_Logic:IsRepairable()
-	if not self:IsMountable() or IsFlying() or not IsOutdoors() then
+	if not self:IsMountable() or IsFlying() or IsIndoors() then
 		return false
 	end
 	mounts = BeStride:DBGet("mounts.repair")
@@ -818,7 +834,7 @@ function BeStride_Logic:CanRepair()
 end
 
 function BeStride_Logic:CanBroom()
-	if IsOutdoors() and GetItemCount(37011, false) > 0 and not BeStride_Logic:IsCombat() and BeStride_Logic:CanBroomSetting() == true then
+	if IsOutdoors() and GetItemCount(37011, false) > 0 and not self:IsCombat() and self:CanBroomSetting() == true then
 		return true
 	end
 end
@@ -847,7 +863,7 @@ function BeStride_Logic:NeedToRepair()
 end
 
 function BeStride_Logic:IsHerbalismAndCanRobot()
-	if BeStride_Logic:IsHerbalism() and not BeStride_Logic:IsCombat() and BeStride_Logic:CanRobotSetting() then
+	if self:IsHerbalism() and not self:IsCombat() and self:CanRobotSetting() then
 		if IsUsableSpell(134359) or IsUsableSpell(223814) then
 			return true
 		else
@@ -871,6 +887,38 @@ end
 
 function BeStride_Logic:CanRobotSetting()
 	return BeStride:DBGet("settings.mount.forcerobot")
+end
+
+function BeStride_Logic:IsNightFaeAndCanSoulShape()
+	if self:IsNightFae() then
+		if IsUsableSpell(310143) and self:MovementCheck() then
+			local OnCooldown, _, _, _ = GetSpellCooldown(310143)
+			-- BeStride_Debug:Info(tostring(self:IsAuraExist(310143)))
+			if (OnCooldown == 0 or self:IsAuraExist(310143)) then
+				return true
+			else
+				return false
+			end
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+function BeStride_Logic:IsNightFae()
+	local covenant = C_Covenants.GetActiveCovenantID()
+	-- 0	None	
+	-- 1	Kyrian	
+	-- 2	Venthyr	
+	-- 3	NightFae	
+	-- 4	Necrolord	
+	if covenant == 3 then
+		return true
+	else
+		return false
+	end
 end
 
 -- +----------+ --
