@@ -263,13 +263,13 @@ function BeStride:ChatCommand(input)
 	if input == "reload" then
 		BeStride:buildMountTables()
 	elseif input == "map" then
-		local locID = C_Map.GetBestMapForUnit("player")
+		local locID = BeStride:GetMap()
 		print("mapID:name:mapType:parentMapID")
 		local map = self:GetMapUntil(locID,0,true)
 		print("Final: ")
 		print(map.mapID .. ":" .. map.name .. ":" .. map.mapType .. ":" .. map.parentMapID)
 	elseif input == "maplast" then
-		local locID = C_Map.GetBestMapForUnit("player")
+		local locID = BeStride:GetMap()
 		print("mapID:name:mapType:parentMapID")
 		local map = self:GetMapUntilLast(locID,0,true)
 		print("Final: ")
@@ -517,5 +517,15 @@ function BeStride:GetMapUntilLast(locID,filter,printOut)
 		end
 	else
 		return nil
+	end
+end
+
+function BeStride:IsMountUsable(mountSpellID)
+	local mountID = C_MountJournal.GetMountFromSpell(mountSpellID)
+	if mountID ~= nil then
+		local _,_,_,_,usable=C_MountJournal.GetMountInfoByID(mountID)
+		return usable
+	else
+		return IsUsableSpell(mountSpellID)
 	end
 end

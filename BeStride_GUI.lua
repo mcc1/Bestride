@@ -575,7 +575,7 @@ end
 
 function BeStride_GUI:DebugMap(mapID)
 	if mapID == nil then
-		mapID = C_Map.GetBestMapForUnit("player")
+		mapID = BeStride:GetMap()
 	end
 	
 	local map = C_Map.GetMapInfo(mapID)

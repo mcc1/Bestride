@@ -75,6 +75,7 @@ function BeStride_Logic:Regular()
 		return BeStride_Mount:SpecialZone()
 	elseif self:IsInMawAndSpecial() then
 		self:DismountAndExit()
+		-- BeStride_Debug:Info('call in maw')
 		return self:InMaw()
 	elseif self:IsRepairable() then
 		self:DismountAndExit()
@@ -588,7 +589,7 @@ function BeStride_Logic:IsUnderwater()
 end
 
 function BeStride_Logic:IsInMawAndSpecial()
-	local mapID = C_Map.GetBestMapForUnit("player")
+	local mapID = BeStride:GetMap()
 	if mapID == 1543 then
 		if IsUsableSpell(312762) then
 			return true
@@ -602,8 +603,10 @@ end
 
 function BeStride_Logic:InMaw()
 	if IsUsableSpell(312762) and not self:IsCombat() then
+		-- BeStride_Debug:Info('use mounts')
 		return BeStride_Mount:MawMounts()
 	elseif self:IsNightFaeAndCanSoulShape() then
+		-- BeStride_Debug:Info('use soulshape')
 		return BeStride_Mount:SoulShape()
 	else
 		BeStride_Debug:Error('nothing can use')
@@ -612,7 +615,7 @@ function BeStride_Logic:InMaw()
 end
 
 function BeStride_Logic:IsSpecialZone()
-	local mapID = C_Map.GetBestMapForUnit("player")
+	local mapID = BeStride:GetMap()
 	local micro = BeStride:GetMapUntil(mapID,5)
 	local dungeon = BeStride:GetMapUntil(mapID,4)
 	local zone = BeStride:GetMapUntil(mapID,3)
@@ -630,7 +633,7 @@ function BeStride_Logic:IsSpecialZone()
 end
 
 function BeStride_Logic:SpecialZone()
-	local mapID = C_Map.GetBestMapForUnit("player")
+	local mapID = BeStride:GetMap()
 	local micro = BeStride:GetMapUntil(mapID,5)
 	local dungeon = BeStride:GetMapUntil(mapID,4)
 	local zone = BeStride:GetMapUntil(mapID,3)
@@ -712,7 +715,7 @@ end
 function BeStride_Logic:IsFlyable()
 	if IsOutdoors() then
 		local skill,spells = self:GetRidingSkill()
-		local mapID = C_Map.GetBestMapForUnit("player")
+		local mapID = BeStride:GetMap()
 		
 		if countTable(BeStride_Constants.Riding.Flight.Restricted.Continents) > 0 then
 			local continent = BeStride:GetMapUntil(mapID,2)
@@ -729,7 +732,7 @@ function BeStride_Logic:IsFlyable()
 			end
 		end
 		
-		if countTable(BeStride_Constants.Riding.Flight.Restricted.Continents) > 0 then
+		if countTable(BeStride_Constants.Riding.Flight.Restricted.Zones) > 0 then
 			local zone = BeStride:GetMapUntil(mapID,3)
 			if zone ~= nil then
 				for key,value in pairsByKeys(BeStride_Constants.Riding.Flight.Restricted.Zones) do
@@ -772,7 +775,7 @@ function BeStride_Logic:IsLoanedMount()
 end
 
 function BeStride_Logic:CheckLoanedMount()
-	local mapID = C_Map.GetBestMapForUnit("player")
+	local mapID = BeStride:GetMap()
 	local zone = BeStride:GetMapUntil(mapID,3)
 	if zone == nil then
 		return nil

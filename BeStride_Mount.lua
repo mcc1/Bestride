@@ -171,7 +171,7 @@ function BeStride_Mount:Loaned()
 end
 
 function BeStride_Mount:VashjirSeahorse()
-	if IsUsableSpell(75207) then
+	if BeStride:IsMountUsable(75207) then
 		return 75207
 	else
 		return nil
@@ -179,9 +179,9 @@ function BeStride_Mount:VashjirSeahorse()
 end
 
 function BeStride_Mount:Chauffeur()
-	if IsUsableSpell(179245) then
+	if BeStride:IsMountUsable(179245) then
 		return self:MountSpell(BeStride:SpellToName(179245))
-	elseif IsUsableSpell(179244) then
+	elseif BeStride:IsMountUsable(179244) then
 		return self:MountSpell(BeStride:SpellToName(179244))
 	end
 end
@@ -189,10 +189,10 @@ end
 function BeStride_Mount:Robot()
 	local mounts={}
 
-	if IsUsableSpell(134359) then
+	if BeStride:IsMountUsable(134359) then
 		table.insert(mounts,134359)
 	end
-	if IsUsableSpell(223814) then
+	if BeStride:IsMountUsable(223814) then
 		table.insert(mounts,223814)
 	end
 
@@ -201,16 +201,17 @@ end
 
 function BeStride_Mount:MawMounts()
 	local mounts={}
-	
-	if IsUsableSpell(312762) then
+
+	if BeStride:IsMountUsable(312762) then
 		table.insert(mounts,312762)
 	end
-	if IsUsableSpell(344577) then
+	if BeStride:IsMountUsable(344577) then
 		table.insert(mounts,344577)
 	end
-	if IsUsableSpell(344578) then
+	if BeStride:IsMountUsable(344578) then
 		table.insert(mounts,344578)
 	end
+	-- BeStride_Debug:Debug(countTable(mounts))
 
 	return self:MountSpell(BeStride:SpellToName(mounts[math.random(#mounts)]))
 end

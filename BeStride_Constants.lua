@@ -104,14 +104,6 @@ BeStride_Constants = {
 					[1] = "",
 				},
 			},
-			--[] = {
-				--name = "",
-				--unlocks = "zone",
-				--zones = {
-					--[]
-				--},
-				--depends = ""
-			--},
 			[281576] = {
 				name = "Battle for Azeroth Pathfinder",
 				depends = 34090,
@@ -124,6 +116,14 @@ BeStride_Constants = {
 					[1] = "",
 				},
 			},
+			--[] = {
+				--name = "",
+				--unlocks = "zone",
+				--zones = {
+					--[]
+				--},
+				--depends = ""
+			--},
 		},
 		Flight = {
 			Restricted = {
