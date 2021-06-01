@@ -480,6 +480,10 @@ end
 
 function BeStride:GetMapUntil(locID,filter,printOut)
 	local map = C_Map.GetMapInfo(locID)
+	if locID == nil then
+		-- BeStride_Debug:Debug('empty locid')
+		return nil
+	end
 	
 	if printOut == true then
 		print(map.mapID .. ":" .. map.name .. ":" .. map.mapType .. ":" .. map.parentMapID)

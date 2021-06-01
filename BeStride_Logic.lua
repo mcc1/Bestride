@@ -590,7 +590,7 @@ end
 
 function BeStride_Logic:IsInMawAndSpecial()
 	local mapID = BeStride:GetMap()
-	if mapID == 1543 then
+	if mapID == 1543 or mapID == 1648 then
 		if IsUsableSpell(312762) then
 			return true
 		else
@@ -950,7 +950,7 @@ function BeStride_Logic:IsNightFae()
 	-- 2	Venthyr	
 	-- 3	NightFae	
 	-- 4	Necrolord	
-	if covenant == 3 then
+	if covenant == 3 or (covenant == 0 and UnitLevel("player") >= 50) then
 		return true
 	else
 		return false
