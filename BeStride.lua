@@ -530,6 +530,6 @@ function BeStride:IsMountUsable(mountSpellID)
 		local _,_,_,_,usable=C_MountJournal.GetMountInfoByID(mountID)
 		return usable
 	else
-		return IsUsableSpell(mountSpellID)
+		return IsPlayerSpell(mountSpellID)
 	end
 end

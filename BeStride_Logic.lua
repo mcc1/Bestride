@@ -49,6 +49,9 @@ function BeStride_Logic:Regular()
 	elseif self:IsDemonHunterAndSpecial() then
 		self:DismountAndExit()
 		return self:DemonHunter()
+	elseif self:IsHunterAndSpecial() then
+		self:DismountAndExit()
+		return self:Hunter()
 	elseif self:IsMageAndSpecial() then
 		self:DismountAndExit()
 		return self:Mage()
@@ -160,6 +163,9 @@ function BeStride_Logic:GroundMountButton()
 	elseif self:IsDemonHunterAndSpecial() then
 		self:DismountAndExit()
 		return self:DemonHunter()
+	elseif self:IsHunterAndSpecial() then
+		self:DismountAndExit()
+		return self:Hunter()
 	elseif self:IsDruidAndSpecial() then
 		self:DismountAndExit()
 		return self:Druid()
@@ -255,8 +261,12 @@ function BeStride_Logic:Combat()
 			return BeStride_Mount:SoulShape()
 	elseif self:IsDeathKnight() and BeStride:DBGet("settings.classes.deathknight.wraithwalk") then
 		return BeStride_Mount:DeathKnightWraithWalk()
+	elseif self:IsDeathKnight() then
+		return BeStride_Mount:DeathKnightDeathAdvance()
 	elseif self:IsDemonHunter() and self:DemonHunterFelRush() then
 		return BeStride_Mount:DemonHunterFelRush()
+	elseif self:IsHunter() and self:HunterAspectOfTheCheetah() then
+		return BeStride_Mount:HunterAspectOfTheCheetah()
 	elseif self:IsDruid() and BeStride:DBGet("settings.classes.druid.traveltotravel") then
 		return BeStride_Mount:DruidTravel()
 	elseif self:IsMage() and (BeStride:DBGet("settings.classes.mage.blink") or BeStride:DBGet("settings.classes.mage.slowfall"))  then
@@ -293,7 +303,7 @@ end
 function BeStride_Logic:NeedsChauffeur()
 	local skill,spells = self:GetRidingSkill()
 	if skill == 0 then
-		if IsUsableSpell(179245) or IsUsableSpell(179244)  then
+		if IsPlayerSpell(179245) or IsPlayerSpell(179244)  then
 			return true
 		else
 			return false
@@ -305,7 +315,7 @@ end
 
 function BeStride_Logic:IsDeathKnightAndSpecial()
 	if self:IsDeathKnight() then
-		if not IsFlying() and not IsFalling() and self:MovementCheck() and self:DeathKnightWraithWalk() then
+		if not IsFlying() and not IsFalling() and self:MovementCheck() and (self:DeathKnightWraithWalk() or self:DeathKnightDeathAdvance()) then
 			return true
 		else
 			return false
@@ -326,6 +336,20 @@ function BeStride_Logic:IsDemonHunterAndSpecial()
 		end
 	elseif self:MovementCheck() and self:DemonHunterFelRush()  then
 		return true
+	else
+		return false
+	end
+end
+
+function BeStride_Logic:IsHunterAndSpecial()
+	if self:IsHunter() then
+		if IsFlying() then
+			return false
+		elseif not IsFlying() and self:MovementCheck() and self:HunterAspectOfTheCheetah() then
+			return true
+		else
+			return false
+		end
 	else
 		return false
 	end
@@ -453,7 +477,11 @@ end
 
 function BeStride_Logic:DeathKnight()
 	if not IsFlying() and self:MovementCheck() and self:DeathKnightWraithWalk() then
+		-- BeStride_Debug:Info('wraith walk test')
 		return BeStride_Mount:DeathKnightWraithWalk()
+	elseif not IsFlying() and self:MovementCheck() and self:DeathKnightDeathAdvance() then
+		-- BeStride_Debug:Info('death advance test')
+		return BeStride_Mount:DeathKnightDeathAdvance()
 	else
 		BeStride_Debug:Error("This is a error.  Please report to the maintainer at https://www.github.com/dansheps/bestride/issues/. ID: DKBSL")
 	end
@@ -472,6 +500,14 @@ function BeStride_Logic:DemonHunter()
 		return BeStride_Mount:DemonHunterFelRush()
 	else
 		BeStride_Debug:Error("This is a error.  Please report to the maintainer at https://www.github.com/dansheps/bestride/issues/. ID: DHBSL")
+	end
+end
+
+function BeStride_Logic:Hunter()
+	if not IsFlying() and self:MovementCheck() and self:HunterAspectOfTheCheetah() then
+		return BeStride_Mount:HunterAspectOfTheCheetah()
+	else
+		BeStride_Debug:Error("This is a error.  Please report to the maintainer at https://www.github.com/dansheps/bestride/issues/. ID: HBSL")
 	end
 end
 
@@ -591,7 +627,7 @@ end
 function BeStride_Logic:IsInMawAndSpecial()
 	local mapID = BeStride:GetMap()
 	if mapID == 1543 or mapID == 1648 then
-		if IsUsableSpell(312762) then
+		if IsPlayerSpell(312762) then
 			return true
 		else
 			return false
@@ -602,7 +638,7 @@ function BeStride_Logic:IsInMawAndSpecial()
 end
 
 function BeStride_Logic:InMaw()
-	if IsUsableSpell(312762) and not self:IsCombat() then
+	if IsPlayerSpell(312762) and not self:IsCombat() then
 		-- BeStride_Debug:Info('use mounts')
 		return BeStride_Mount:MawMounts()
 	elseif self:IsNightFaeAndCanSoulShape() then
@@ -900,7 +936,7 @@ end
 
 function BeStride_Logic:IsHerbalismAndCanRobot()
 	if self:IsHerbalism() and not self:IsCombat() and self:CanRobotSetting() then
-		if IsUsableSpell(134359) or IsUsableSpell(223814) then
+		if IsPlayerSpell(134359) or IsPlayerSpell(223814) then
 			return true
 		else
 			return false
@@ -927,7 +963,7 @@ end
 
 function BeStride_Logic:IsNightFaeAndCanSoulShape()
 	if self:IsNightFae() then
-		if IsUsableSpell(310143) and self:MovementCheck() then
+		if IsPlayerSpell(310143) and self:MovementCheck() then
 			local OnCooldown, _, _, _ = GetSpellCooldown(310143)
 			-- BeStride_Debug:Info(tostring(self:IsAuraExist(310143)))
 			if (OnCooldown == 0 or self:IsAuraExist(310143)) then
@@ -972,6 +1008,15 @@ end
 function BeStride_Logic:IsDemonHunter()
 	-- Check for DemonHunter
 	if playerTable["class"]["id"] == 12 then
+		return true
+	else
+		return false
+	end
+end
+
+function BeStride_Logic:IsHunter()
+	-- Check for DemonHunter
+	if playerTable["class"]["id"] == 3 then
 		return true
 	else
 		return false
@@ -1051,7 +1096,7 @@ end
 -- Check for Swim Form
 -- Returns: boolean
 function BeStride_Logic:DruidCanSwim()
-	if IsUsableSpell(783) then
+	if IsPlayerSpell(783) then
 		return true
 	else
 		return false
@@ -1061,7 +1106,7 @@ end
 -- Check for Travel Form
 -- Returns: boolean
 function BeStride_Logic:DruidCanTravel()
-	if IsUsableSpell(783) then
+	if IsPlayerSpell(783) then
 		return true
 	else
 		return false
@@ -1071,7 +1116,7 @@ end
 -- Check for Travel Form
 -- Returns: boolean
 function BeStride_Logic:DruidCanCat()
-	if IsSpellKnown(768) and IsUsableSpell(768) then
+	if IsSpellKnown(768) and IsPlayerSpell(768) then
 		return true
 	else
 		return false
@@ -1081,7 +1126,7 @@ end
 -- Check for Flight Form
 -- Returns: boolean
 function BeStride_Logic:DruidCanFly()
-	if IsUsableSpell(783) then
+	if IsPlayerSpell(783) then
 		return true
 	else
 		return false
@@ -1093,16 +1138,26 @@ end
 -- ------------------ --
 
 function BeStride_Logic:DeathKnightCanWraithWalk()
-	if IsUsableSpell(212552) then
-		return true
+	if IsPlayerSpell(212552) then
+		local OnCooldown, _, _, _ = GetSpellCooldown(212552)
+		if OnCooldown == 0 then
+			return true
+		else
+			return false
+		end
 	else
 		return false
 	end
 end
 
 function BeStride_Logic:DeathKnightCanDeathAdvance()
-	if IsUsableSpell(48265) then
-		return true
+	if IsPlayerSpell(48265) then
+		local OnCooldown, _, _, _ = GetSpellCooldown(48265)
+		if OnCooldown == 0 then
+			return true
+		else
+			return false
+		end
 	else
 		return false
 	end
@@ -1114,7 +1169,7 @@ end
 
 function BeStride_Logic:DemonHunterCanFelRush()
 	
-	if IsUsableSpell(195072) then
+	if IsPlayerSpell(195072) then
 		local OnCooldown, _, _, _ = GetSpellCooldown(195072)
 		if OnCooldown == 0 then
 			return true
@@ -1127,8 +1182,26 @@ function BeStride_Logic:DemonHunterCanFelRush()
 end
 
 function BeStride_Logic:DemonHunterCanGlide()
-	if IsUsableSpell(131347) then
+	if IsPlayerSpell(131347) then
 		return true
+	else
+		return false
+	end
+end
+
+-- ------------- --
+-- Hunter Spells --
+-- ------------- --
+
+function BeStride_Logic:HunterCanAspectOfTheCheetah()
+	
+	if IsPlayerSpell(186257) then
+		local OnCooldown, _, _, _ = GetSpellCooldown(186257)
+		if OnCooldown == 0 then
+			return true
+		else
+			return false
+		end
 	else
 		return false
 	end
@@ -1139,7 +1212,7 @@ end
 -- ----------- --
 
 function BeStride_Logic:MageCanSlowFall()
-	if IsUsableSpell(1706) then
+	if IsPlayerSpell(1706) then
 		return true
 	else
 		return false
@@ -1147,7 +1220,7 @@ function BeStride_Logic:MageCanSlowFall()
 end
 
 function BeStride_Logic:MageCanBlink()
-	if IsUsableSpell(1953) then
+	if IsPlayerSpell(1953) then
 		local OnCooldown, _, _, _ = GetSpellCooldown(1953)
 		if OnCooldown == 0 then
 			return true
@@ -1164,7 +1237,7 @@ end
 -- ----------- --
 
 function BeStride_Logic:MonkCanRoll()
-	if IsUsableSpell(109132) or self:MonkCanTorpedo() then
+	if IsPlayerSpell(109132) or self:MonkCanTorpedo() then
 		return true
 	else
 		return false
@@ -1172,7 +1245,7 @@ function BeStride_Logic:MonkCanRoll()
 end
 
 function BeStride_Logic:MonkCanTorpedo()
-	if IsUsableSpell(115008) then
+	if IsPlayerSpell(115008) then
 		return true
 	else
 		return false
@@ -1180,7 +1253,7 @@ function BeStride_Logic:MonkCanTorpedo()
 end
 
 function BeStride_Logic:MonkCanZenFlight()
-	if IsUsableSpell(125883) then
+	if IsPlayerSpell(125883) then
 		return true
 	else
 		return false
@@ -1192,7 +1265,7 @@ end
 -- ------------- --
 
 function BeStride_Logic:PaladinCanDivineSteed()
-	if IsUsableSpell(190784) then
+	if IsPlayerSpell(190784) then
 		return true
 	else
 		return false
@@ -1204,7 +1277,7 @@ end
 -- ------------- --
 
 function BeStride_Logic:PriestCanLevitate()
-	if IsUsableSpell(1706) then
+	if IsPlayerSpell(1706) then
 		return true
 	else
 		return false
@@ -1216,7 +1289,7 @@ end
 -- ------------- --
 
 function BeStride_Logic:ShamanCanGhostWolf()
-	if IsUsableSpell(2645) then
+	if IsPlayerSpell(2645) then
 		return true
 	else
 		return false
@@ -1228,7 +1301,7 @@ end
 -- ------------- --
 
 function BeStride_Logic:RogueCanSprint()
-	if IsUsableSpell(2983) then
+	if IsPlayerSpell(2983) then
 		return true
 	else
 		return false
@@ -1245,6 +1318,18 @@ end
 function BeStride_Logic:DeathKnightWraithWalk()
 	if self:IsDeathKnight() then
 		if self:DeathKnightCanWraithWalk() and BeStride:DBGet("settings.classes.deathknight.wraithwalk") then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+function BeStride_Logic:DeathKnightDeathAdvance()
+	if self:IsDeathKnight() then
+		if self:DeathKnightCanDeathAdvance() then
 			return true
 		else
 			return false
@@ -1273,6 +1358,22 @@ end
 function BeStride_Logic:DemonHunterGlide()
 	if self:IsDemonHunter() then
 		if self:DemonHunterCanGlide() and BeStride:DBGet("settings.classes.demonhunter.glide") then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+-- ------ --
+-- Hunter --
+-- ------ --
+
+function BeStride_Logic:HunterAspectOfTheCheetah()
+	if self:IsHunter() then
+		if self:HunterCanAspectOfTheCheetah() then
 			return true
 		else
 			return false

@@ -240,6 +240,10 @@ function BeStride_Mount:DemonHunterGlide()
 	return self:MountSpell(BeStride:SpellToName(131347))
 end
 
+function BeStride_Mount:HunterAspectOfTheCheetah()
+	return self:MountSpell(BeStride:SpellToName(186257))
+end
+
 function BeStride_Mount:Druid()
 	local travelForm, flightForm = 783, 783 -- 3 in 1 travel form
 
@@ -285,7 +289,7 @@ function BeStride_Mount:MageBlinkNoSlowFall()
 end
 
 function BeStride_Mount:MonkRoll()
-	if IsUsableSpell(109132) then
+	if IsPlayerSpell(109132) then
 		return self:MountSpell("[@player] " .. BeStride:SpellToName(109132))
 	else
 		return self:MountSpell("[@player] " .. BeStride:SpellToName(115008))
