@@ -211,7 +211,6 @@ function BeStride_Mount:MawMounts()
 	if BeStride:IsMountUsable(344578) then
 		table.insert(mounts,344578)
 	end
-	-- BeStride_Debug:Debug(countTable(mounts))
 
 	return self:MountSpell(BeStride:SpellToName(mounts[math.random(#mounts)]))
 end

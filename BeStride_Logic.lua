@@ -627,7 +627,7 @@ end
 function BeStride_Logic:IsInMawAndSpecial()
 	local mapID = BeStride:GetMap()
 	if mapID == 1543 or mapID == 1648 then
-		if IsPlayerSpell(312762) then
+		if IsPlayerSpell(310143) then
 			return true
 		else
 			return false
@@ -638,7 +638,7 @@ function BeStride_Logic:IsInMawAndSpecial()
 end
 
 function BeStride_Logic:InMaw()
-	if IsPlayerSpell(312762) and not self:IsCombat() then
+	if not self:IsCombat() then
 		-- BeStride_Debug:Info('use mounts')
 		return BeStride_Mount:MawMounts()
 	elseif self:IsNightFaeAndCanSoulShape() then
