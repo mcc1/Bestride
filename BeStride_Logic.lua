@@ -24,7 +24,6 @@ end
 
 function BeStride_Logic:Regular()
 	-- Check if we are mounted first
-	-- BeStride_Debug:Info(tostring(self:IsInMawAndSpecial()))
 	if IsMounted() and self:NeedsChauffeur() then
 		self:DismountAndExit()
 		return BeStride_Mount:Chauffeur()
@@ -76,10 +75,10 @@ function BeStride_Logic:Regular()
 	elseif self:IsSpecialZone() then
 		self:DismountAndExit()
 		return BeStride_Mount:SpecialZone()
-	elseif self:IsInMawAndSpecial() then
-		self:DismountAndExit()
-		-- BeStride_Debug:Info('call in maw')
-		return self:InMaw()
+	-- elseif self:IsInMawAndSpecial() then
+	-- 	self:DismountAndExit()
+	-- 	-- BeStride_Debug:Info('call in maw')
+	-- 	return self:InMaw()
 	elseif self:IsRepairable() then
 		self:DismountAndExit()
 		return BeStride_Mount:Repair()
@@ -193,9 +192,9 @@ function BeStride_Logic:GroundMountButton()
 	elseif self:IsSpecialZone() then
 		self:DismountAndExit()
 		return BeStride_Mount:SpecialZone()
-	elseif self:IsInMawAndSpecial() then
-		self:DismountAndExit()
-		return self:InMaw()
+	-- elseif self:IsInMawAndSpecial() then
+	-- 	self:DismountAndExit()
+	-- 	return self:InMaw()
 	elseif self:IsRepairable() then
 		self:DismountAndExit()
 		return BeStride_Mount:Repair()
@@ -287,8 +286,8 @@ function BeStride_Logic:Combat()
 		return BeStride_Mount:ShamanGhostWolf()
 	elseif self:IsSpecialZone() then
 		return BeStride_Mount:SpecialZone()
-	elseif self:IsInMawAndSpecial() then
-		return self:InMaw()
+	-- elseif self:IsInMawAndSpecial() then
+	-- 	return self:InMaw()
 	end
 end
 
