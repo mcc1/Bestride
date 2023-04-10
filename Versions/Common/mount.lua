@@ -61,7 +61,9 @@ function BeStride:Regular()
 		self:DismountAndExit()
 		return BeStride_Mount:Repair()
 	elseif IsMounted() then
-		if IsFlying() then
+		if self:IsDragonRidingZone() then
+			return BeStride:DismountAndExit()
+		elseif IsFlying() then
 			if self:IsFlyable() and BeStride:DBGet("settings.mount.nodismountwhileflying") ~= true then
 				self:DismountAndExit()
 				if BeStride:DBGet("settings.mount.remount") then
