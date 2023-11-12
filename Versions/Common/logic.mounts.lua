@@ -1,5 +1,5 @@
 function BeStride:CanBroom()
-	if GetItemCount(37011, false) > 0 and not BeStride:IsCombat() and BeStride:GetBroomSetting() == true then
+	if GetItemCount(37011, false) > 0 and not BeStride:IsCombat() and BeStride:GetBroomSetting() == true and not BeStride:IsDragonRidingZone() then
 		return true
 	end
 end
