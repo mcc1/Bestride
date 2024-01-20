@@ -1,5 +1,7 @@
 BeStride_ActionButtonRegularMount = {}
 BeStride_ActionButtonGroundMount = {}
+BeStride_ActionButtonDragonRidingMount = {}
+BeStride_ActionButtonFlightMount = {}
 BeStride_ActionButtonPassengerMount = {}
 BeStride_ActionButtonRepairMount = {}
 
@@ -16,6 +18,10 @@ function BeStride:CreateActionButton(buttontype)
 		Mixin(br, BeStride_ActionButtonRegularMount)
 	elseif buttontype == "Ground" then
 		Mixin(br, BeStride_ActionButtonGroundMount)
+	elseif buttontype == "DragonRiding" then
+		Mixin(br, BeStride_ActionButtonDragonRidingMount)
+	elseif buttontype == "Flight" then
+		Mixin(br, BeStride_ActionButtonFlightMount)
 	elseif buttontype == "Repair" then
 		Mixin(br, BeStride_ActionButtonRepairMount)
 	elseif buttontype == "Passenger" then
@@ -50,6 +56,58 @@ end
 
 -- Action Button Cleanup
 function BeStride_ActionButtonRegularMount:PostClick()
+	if BeStride:IsCombat() then
+		return
+	end
+	
+	BeStride_ABRegularMount:SetAttribute("macrotext", nil)
+end
+
+
+-- +----------+ --
+-- DragonRiding Mount --
+-- +----------+ --
+
+-- Action Button Wrapper
+function BeStride_ActionButtonDragonRidingMount:PreClick()
+	if BeStride:IsCombat() then
+		return
+	end
+	
+	local mount = BeStride:DragonRidingMountButton()
+	if mount ~= nil then
+		self:SetAttribute("macrotext",mount)
+	end
+end
+
+-- Action Button Cleanup
+function BeStride_ActionButtonDragonRidingMount:PostClick()
+	if BeStride:IsCombat() then
+		return
+	end
+	
+	BeStride_ABRegularMount:SetAttribute("macrotext", nil)
+end
+
+
+-- +----------+ --
+-- Flight Mount --
+-- +----------+ --
+
+-- Action Button Wrapper
+function BeStride_ActionButtonFlightMount:PreClick()
+	if BeStride:IsCombat() then
+		return
+	end
+	
+	local mount = BeStride:FlightMountButton()
+	if mount ~= nil then
+		self:SetAttribute("macrotext",mount)
+	end
+end
+
+-- Action Button Cleanup
+function BeStride_ActionButtonFlightMount:PostClick()
 	if BeStride:IsCombat() then
 		return
 	end

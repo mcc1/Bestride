@@ -22,6 +22,28 @@
 	</Scripts>  
 </Button>
 
+<Button name="BeStride_ABGroundMount" inherits="SecureActionButtonTemplate" parent="UIParent">
+	<Attributes>
+		<Attribute name="type" type="string" value="macro"/>
+	</Attributes>
+	<Scripts>
+		<PreClick>
+			BeStride_ActionButtonDragonRidingMount:PreClick()
+		</PreClick>
+	</Scripts>  
+</Button>
+
+<Button name="BeStride_ABGroundMount" inherits="SecureActionButtonTemplate" parent="UIParent">
+	<Attributes>
+		<Attribute name="type" type="string" value="macro"/>
+	</Attributes>
+	<Scripts>
+		<PreClick>
+			BeStride_ActionButtonFlightMount:PreClick()
+		</PreClick>
+	</Scripts>  
+</Button>
+
 <Button name="BeStride_ABPassengerMount" inherits="SecureActionButtonTemplate" parent="UIParent">
 	<Attributes>
 		<Attribute name="type" type="string" value="macro"/>

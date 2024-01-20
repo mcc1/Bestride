@@ -177,6 +177,8 @@ defaults = {
 
 _G["BINDING_HEADER_BESTRIDE_TITLE"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.Header"]
 _G["BINDING_NAME_CLICK BeStride_ABRegularMount:LeftButton"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.Regular"]
+_G["BINDING_NAME_CLICK BeStride_ABDragonRidingMount:LeftButton"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.DragonRiding"]
+_G["BINDING_NAME_CLICK BeStride_ABFlightMount:LeftButton"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.Flight"]
 _G["BINDING_NAME_CLICK BeStride_ABGroundMount:LeftButton"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.Ground"]
 _G["BINDING_NAME_CLICK BeStride_ABRepairMount:LeftButton"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.Repair"]
 _G["BINDING_NAME_CLICK BeStride_ABPassengerMount:LeftButton"] = LibStub("AceLocale-3.0"):GetLocale("BeStride")["Bindings.Passenger"]

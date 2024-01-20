@@ -8,12 +8,16 @@ function BeStride:OnInitialize()
 	
 	self.buttons = {
 		["mount"] = nil,
+		["dragonriding"] = nil,
+		["flight"] = nil,
 		["ground"] = nil,
 		["repair"] = nil,
 		["passenger"] = nil,
 	}
 	
 	self.buttons["regular"] = BeStride:CreateActionButton('Regular')
+	self.buttons["dragonriding"] = BeStride:CreateActionButton('DragonRiding')
+	self.buttons["flight"] = BeStride:CreateActionButton('Flight')
 	self.buttons["ground"] = BeStride:CreateActionButton('Ground')
 	self.buttons["repair"] = BeStride:CreateActionButton('Repair')
 	self.buttons["passenger"] = BeStride:CreateActionButton('Passenger')
@@ -72,6 +76,8 @@ end
 
 function BeStride:UpdateBindings()
 	BeStride:SetKeyBindings(self.buttons["regular"])
+	BeStride:SetKeyBindings(self.buttons["dragonriding"])
+	BeStride:SetKeyBindings(self.buttons["flight"])
 	BeStride:SetKeyBindings(self.buttons["ground"])
 	BeStride:SetKeyBindings(self.buttons["passenger"])
 	BeStride:SetKeyBindings(self.buttons["repair"])
@@ -81,6 +87,8 @@ end
 
 function BeStride:UpdateOverrideBindings()
 	BeStride:SetKeyBindingsOverrides(self.buttons["regular"])
+	BeStride:SetKeyBindingsOverrides(self.buttons["dragonriding"])
+	BeStride:SetKeyBindingsOverrides(self.buttons["flight"])
 	BeStride:SetKeyBindingsOverrides(self.buttons["ground"])
 	BeStride:SetKeyBindingsOverrides(self.buttons["passenger"])
 	BeStride:SetKeyBindingsOverrides(self.buttons["repair"])

@@ -218,6 +218,32 @@ function BeStride:RepairMountButton()
 	end
 end
 
+function BeStride:DragonRidingMountButton()
+	if IsMounted() or IsOutdoors() then
+		if IsFlying() and self:IsFlyable() and BeStride:DBGet("settings.mount.nodismountwhileflying") == true then
+			return nil
+		else
+			self:DismountAndExit()
+			return BeStride_Mount:Dragonriding()
+		end
+	else
+		return nil
+	end
+end
+
+function BeStride:FlightMountButton()
+	if IsMounted() or IsOutdoors() then
+		if IsFlying() and self:IsFlyable() and BeStride:DBGet("settings.mount.nodismountwhileflying") == true then
+			return nil
+		else
+			self:DismountAndExit()
+			return BeStride_Mount:Flying()
+		end
+	else
+		return nil
+	end
+end
+
 function BeStride:PassengerMountButton(type)
 	if IsMounted() or IsOutdoors() then
 		if IsFlying() and self:IsFlyable() and BeStride:DBGet("settings.mount.nodismountwhileflying") == true then
