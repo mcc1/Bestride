@@ -66,6 +66,7 @@ L["Settings.UseFlyingMount"] = "Use Flying type mounts even in areas where you c
 L["Settings.ForceFlyingMount"] = "Force Flying type mounts even in areas where you cannot fly"
 L["Settings.CopyTargetMount"] = "Attempt to use the same mount as your current target"
 L["Settings.PrioritizePassenger"] = "Prioritize Passenger Mounts when in group"
+L["Settings.PrioritizeDragonRiding"] = "Priotize DragonRiding mount when usable"
 L["Settings.NoSwimming"] = "Never use underwater mounts even when swimming"
 L["Settings.FlyingBroom"] = "Always use Flying Broom instead of a normal mount"
 L["Settings.Telaari"] = "Always use the Telaari Talbuk or Frostwolf War Wolf while in Nagrand"

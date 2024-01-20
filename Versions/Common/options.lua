@@ -84,6 +84,15 @@ local optionsTable_Options = {
                     set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
                     disabled=function (info) return not BeStride:DBCanSetSetting("Mount" ,info[#info]) end,
                 },
+                ["mount.prioritizedragonriding"]={
+                    type="toggle",
+                    name=L["Settings.PrioritizeDragonRiding"],
+                    order=8,
+                    width="full",
+                    get=function (info) return BeStride:DBGetSetting(info[#info]) end,
+                    set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
+                    disabled=function(info) return not BeStride:DBGetSetting('mount.useflyingmount') end,
+                },
                 special_mounts = {
                     type="group",
                     inline=true,

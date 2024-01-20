@@ -9,6 +9,7 @@ BeStride_Variables = {
 			["mount.forceflyingmount"]={name="mount.forceflyingmount",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.ForceFlyingMount"], depends = {"mount.useflyingmount"}},
 			["mount.copytargetmount"]={name="mount.copytargetmount",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.CopyTargetMount"], era={classic=false}},
 			["mount.prioritizepassenger"]={name="mount.prioritizepassenger",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.PrioritizePassenger"]},
+			["mount.prioritizedragonriding"]={name="mount.prioritizedragonriding",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.PrioritizeDragonRiding"]},
 			["mount.noswimming"]={name="mount.noswimming",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.NoSwimming"]},
 			["mount.flyingbroom"]={name="mount.flyingbroom",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.FlyingBroom"]},
 			["mount.telaari"]={name="mount.telaari",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.Telaari"]},
@@ -104,6 +105,7 @@ defaults = {
 				flyingbroom = false,
 				forcerobot = false,
 				prioritizepassenger = false,
+				prioritizedragonriding = true,
 				telaari = true,
 				repair = {
 					use = false,
