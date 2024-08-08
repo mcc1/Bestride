@@ -83,7 +83,7 @@ function BeStride:IsFlyable()
 			end
 		end
 				
-		if self:IsFlyableArea() and skill >= 225 then
+		if self:IsFlyableArea() and (skill >= 225 or spells[376777]) then
 			return true
 		else
 			return false
