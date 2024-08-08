@@ -160,17 +160,17 @@ function BeStride:ChatCommand(input)
 		LibStub("AceConfigDialog-3.0"):Open("BeStride-Mounts")
 	elseif command == "options" then
 		if self.IsMainline() then
-			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.configuration.frame)
+			Settings.OpenToCategory(self.configDialogs.configuration.id)
 		else
-			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.options.frame)
-			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.options.frame)
+			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.options.id)
+			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.options.id)
 		end
 	elseif command == "profiles" then
 		if self.IsMainline() then
-			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.configuration.frame)
+			Settings.OpenToCategory(self.configDialogs.configuration.id)
 		else
-			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.profiles.frame)
-			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.profiles.frame)
+			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.profiles.id)
+			InterfaceOptionsFrame_OpenToCategory(self.configDialogs.profiles.id)
 		end
 	elseif command == "debug" or input == "bug" then
 		LibStub("AceConfigDialog-3.0"):Open("BeStride-Debug")
@@ -202,9 +202,9 @@ function BeStride:ChatCommand(input)
 		print("/br help - This help")
 		print("/br reload - Rebuild the mount table")
 		print("/br map - Print the current map layers")
-		InterfaceOptionsFrame_OpenToCategory(self.configDialogs.profiles.frame)
-		InterfaceOptionsFrame_OpenToCategory(self.configDialogs.profiles.frame)
-		InterfaceOptionsFrame_OpenToCategory("BeStride")
+		Settings.OpenToCategory(self.configDialogs.profiles.id)
+		Settings.OpenToCategory(self.configDialogs.profiles.id)
+		Settings.OpenToCategory("BeStride")
 	end
 end
 
