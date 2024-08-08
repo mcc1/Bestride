@@ -361,9 +361,12 @@ BeStride_Constants = {
 			[402] = "dragonriding",
 			[407] = "flying",
 			[408] = "ground",
+			[412] = "ground",
 			[424] = "flying",
 			[428] = "flying",
-			[429] = "flying"
+			[429] = "flying",
+			[436] = "flying",
+			[437] = "flying"
 		},
 	}
 }
