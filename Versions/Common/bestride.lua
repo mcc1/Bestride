@@ -203,8 +203,6 @@ function BeStride:ChatCommand(input)
 		print("/br reload - Rebuild the mount table")
 		print("/br map - Print the current map layers")
 		Settings.OpenToCategory(self.configDialogs.profiles.id)
-		Settings.OpenToCategory(self.configDialogs.profiles.id)
-		Settings.OpenToCategory("BeStride")
 	end
 end
 
