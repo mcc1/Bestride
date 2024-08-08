@@ -258,6 +258,10 @@ function BeStride_Mount:HunterAspectOfTheCheetah()
 	return self:MountSpell(SpellToName(186257))
 end
 
+function BeStride_Mount:EvokerSoar()
+	return self:MountSpell(SpellToName(BeStride_Constants.spells.evoker.soar))
+end
+
 function BeStride_Mount:PriestLevitate()
 	return self:MountSpell("[@player] "..SpellToName(1706).."\n/cancelaura "..SpellToName(1706))
 end
@@ -315,7 +319,7 @@ function BeStride_Mount:Evoker()
 end
 
 function BeStride_Mount:EvokerHover()
-	return self:MountSpell("[@player] "..SpellToName(358267))
+	return self:MountSpell("[@player] "..SpellToName(BeStride_Constants.spells.evoker.hover))
 end
 
 function BeStride_Mount:Rogue()
