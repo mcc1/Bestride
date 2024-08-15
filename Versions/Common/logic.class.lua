@@ -1,4 +1,5 @@
 local IsUsableSpell = C_Spell.IsSpellUsable
+local GetSpellCooldown = C_Spell.GetSpellCooldown
 
 function BeStride:IsDeathKnight()
 	-- Check for DeathKnight
