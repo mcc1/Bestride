@@ -1,4 +1,6 @@
 
+local IsUsableSpell = C_Spell.IsSpellUsable
+
 function BeStride:NeedsChauffeur()
 	local skill,spells = self:GetRidingSkill()
 	if skill == 0 then

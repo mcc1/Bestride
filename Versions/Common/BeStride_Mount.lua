@@ -1,4 +1,5 @@
 BeStride_Mount = {}
+local IsUsableSpell = C_Spell.IsSpellUsable
 
 function BeStride_Mount:MountSpell(spell)
 	return "/cast " .. spell
@@ -18,7 +19,7 @@ end
 function BeStride_Mount:DoMount(mounts)
 	local mount = mounts[math.random(#mounts)]
 	local spell = mountTable["master"][mount]["spellID"]
-	local name = GetSpellInfo(spell)
+	local name = C_Spell.GetSpellName(spell)
 	return BeStride_Mount:Mount(name)
 end
 

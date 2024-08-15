@@ -1,3 +1,5 @@
+local IsUsableSpell = C_Spell.IsSpellUsable
+
 function BeStride:NoDismountWhileFlying()
 	-- Check whether we can dismount while flying
 	-- Returns: boolean

@@ -1,3 +1,5 @@
+local IsUsableSpell = C_Spell.IsSpellUsable
+
 function BeStride:IsDeathKnight()
 	-- Check for DeathKnight
 	if playerTable["class"]["id"] == 6 then

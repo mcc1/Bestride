@@ -42,9 +42,7 @@ function countTable(t)
 end
 
 function SpellToName(spellID)
-	local name, rank, icon, castTime, minRange, maxRange, spellID = GetSpellInfo(spellID)
-	
-	return name
+	return C_Spell.GetSpellName(spellID)
 end
 
 function ItemToName(itemID)
