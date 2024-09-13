@@ -126,6 +126,8 @@ function BeStride:Evoker()
 		-- soar
 		return BeStride_Mount:EvokerSoar()
 	end
+
+	BeStride_Debug:Error("This is a error.  Please report to the maintainer at https://www.github.com/dansheps/bestride/issues/. ID: EVBSL")
 end
 
 function BeStride:Rogue()

@@ -304,7 +304,7 @@ end
 -- Check for Swim Form
 -- Returns: boolean
 function BeStride:DruidCanSwim()
-	if IsUsableSpell(BeStride_Constants.spells.druid.aquaticform) then
+	if BeStride:IsSpellUsable(BeStride_Constants.spells.druid.aquaticform) then
 		return true
 	else
 		return false
@@ -314,7 +314,7 @@ end
 -- Check for Travel Form
 -- Returns: boolean
 function BeStride:DruidCanTravel()
-	if IsUsableSpell(BeStride_Constants.spells.druid.travelform) then
+	if BeStride:IsSpellUsable(BeStride_Constants.spells.druid.travelform) then
 		return true
 	else
 		return false
@@ -324,7 +324,7 @@ end
 -- Check for Travel Form
 -- Returns: boolean
 function BeStride:DruidCanCat()
-	if IsSpellKnown(BeStride_Constants.spells.druid.catform) and IsUsableSpell(BeStride_Constants.spells.druid.catform) then
+	if IsSpellKnown(BeStride_Constants.spells.druid.catform) and BeStride:IsSpellUsable(BeStride_Constants.spells.druid.catform) then
 		return true
 	else
 		return false
@@ -346,7 +346,7 @@ end
 -- ------------------ --
 
 function BeStride:DeathKnightCanWraithWalk()
-	if IsUsableSpell(212552) then
+	if BeStride:IsSpellUsable(212552) then
 		return true
 	else
 		return false
@@ -359,12 +359,12 @@ end
 
 function BeStride:DemonHunterCanFelRush()
 	
-	if IsUsableSpell(195072) then
-		local OnCooldown, _, _, _ = GetSpellCooldown(195072)
-		if OnCooldown == 0 then
-			return true
-		else
+	if BeStride:IsSpellUsable(195072) then
+		local OnCooldown = BeStride:GetSpellOnCooldown(195072)
+		if OnCooldown then
 			return false
+		else
+			return true
 		end
 	else
 		return false
@@ -372,7 +372,7 @@ function BeStride:DemonHunterCanFelRush()
 end
 
 function BeStride:DemonHunterCanGlide()
-	if IsUsableSpell(131347) then
+	if BeStride:IsSpellUsable(131347) then
 		return true
 	else
 		return false
@@ -383,12 +383,12 @@ end
 -- Hunter Spells --
 -- ------------- --
 function BeStride:HunterCanAspectOfTheCheetah()
-	if IsSpellKnown(186257) and IsUsableSpell(186257) then
-		local OnCooldown, _, _, _ = GetSpellCooldown(186257)
-		if OnCooldown == 0 then
-			return true
-		else
+	if IsSpellKnown(186257) and BeStride:IsSpellUsable(186257) then
+		local OnCooldown = BeStride:GetSpellOnCooldown(186257)
+		if OnCooldown then
 			return false
+		else
+			return true
 		end
 	else
 		return false
@@ -400,7 +400,7 @@ end
 -- ----------- --
 
 function BeStride:MageCanSlowFall()
-	if IsUsableSpell(1706) then
+	if BeStride:IsSpellUsable(1706) then
 		return true
 	else
 		return false
@@ -408,12 +408,12 @@ function BeStride:MageCanSlowFall()
 end
 
 function BeStride:MageCanBlink()
-	if IsUsableSpell(1953) then
-		local OnCooldown, _, _, _ = GetSpellCooldown(1953)
-		if OnCooldown == 0 then
-			return true
-		else
+	if BeStride:IsSpellUsable(1953) then
+		local OnCooldown = BeStride:GetSpellOnCooldown(1953)
+		if OnCooldown then
 			return false
+		else
+			return true
 		end
 	else
 		return false
@@ -425,7 +425,7 @@ end
 -- ----------- --
 
 function BeStride:MonkCanRoll()
-	if IsUsableSpell(109132) or self:MonkCanTorpedo() then
+	if BeStride:IsSpellUsable(109132) or self:MonkCanTorpedo() then
 		return true
 	else
 		return false
@@ -433,7 +433,7 @@ function BeStride:MonkCanRoll()
 end
 
 function BeStride:MonkCanTorpedo()
-	if IsUsableSpell(115008) then
+	if BeStride:IsSpellUsable(115008) then
 		return true
 	else
 		return false
@@ -441,7 +441,7 @@ function BeStride:MonkCanTorpedo()
 end
 
 function BeStride:MonkCanZenFlight()
-	if IsUsableSpell(125883) then
+	if BeStride:IsSpellUsable(125883) then
 		return true
 	else
 		return false
@@ -453,7 +453,7 @@ end
 -- ------------- --
 
 function BeStride:PaladinCanDivineSteed()
-	if IsUsableSpell(190784) then
+	if BeStride:IsSpellUsable(190784) then
 		return true
 	else
 		return false
@@ -465,7 +465,7 @@ end
 -- ------------- --
 
 function BeStride:PriestCanLevitate()
-	if IsUsableSpell(1706) then
+	if BeStride:IsSpellUsable(1706) then
 		return true
 	else
 		return false
@@ -477,7 +477,7 @@ end
 -- ------------- --
 
 function BeStride:ShamanCanGhostWolf()
-	if IsUsableSpell(2645) then
+	if BeStride:IsSpellUsable(2645) then
 		return true
 	else
 		return false
@@ -488,7 +488,7 @@ end
 -- Evoker Spells --
 -- ------------- --
 function BeStride:EvokerCanHover()
-	if IsUsableSpell(394784) then
+	if BeStride:IsSpellUsable(394784) then
 		return true
 	else
 		return false
@@ -496,12 +496,12 @@ function BeStride:EvokerCanHover()
 end
 
 function BeStride:EvokerCanSoar()	
-	if IsUsableSpell(BeStride_Constants.spells.evoker.soar) then
-		local OnCooldown, _, _, _ = GetSpellCooldown(BeStride_Constants.spells.evoker.soar)
-		if OnCooldown == 0 then
-			return true
-		else
+	if BeStride:IsSpellUsable(BeStride_Constants.spells.evoker.soar) then
+		local OnCooldown = BeStride:GetSpellOnCooldown(BeStride_Constants.spells.evoker.soar)
+		if OnCooldown then
 			return false
+		else
+			return true
 		end
 	else
 		return false
@@ -513,7 +513,7 @@ end
 -- ------------- --
 
 function BeStride:RogueCanSprint()
-	if IsUsableSpell(2983) then
+	if BeStride:IsSpellUsable(2983) then
 		return true
 	else
 		return false
@@ -525,7 +525,7 @@ end
 -- -------------- --
 
 function BeStride:WarlockCanBurningRush()
-    if IsUsableSpell(111400) then
+    if BeStride:IsSpellUsable(111400) then
             return true
     else
             return false
@@ -667,7 +667,7 @@ end
 function BeStride:MageSpecial()
 	if self:IsMage() then
 		if (not self:IsCombat()) then
-			local BlinkOnCooldown, _, _, _ = GetSpellCooldown(1953)
+			local BlinkOnCooldown = BeStride:GetSpellOnCooldown(1953)
 			if not BlinkOnCooldown and IsFalling() and self:MovementCheck() and self:MageCanBlink() then
 				BeStride_Mount:MageBlinkNoSlowFall()
 			elseif not BlinkOnCooldown and not IsFalling() and self:MovementCheck() and self:MageCanBlink() and self:MageIsSlowFalling() then
@@ -839,10 +839,11 @@ function BeStride:EvokerHover()
 end
 
 function BeStride:EvokerSoar()
-	if self:IsEvoker() then 
-		if self:EvokerCanSoar() and BeStride:DBGet("settings.classes.evoker.soar") then
+	if self:IsEvoker() and BeStride:DBGet("settings.classes.evoker.soar") then 
+		if self:EvokerCanSoar() then
 			return true
 		end
 	end
+
 	return false
 end

@@ -42,6 +42,15 @@ local optionsTable_Options = {
                     get=function (info) return BeStride:DBGetSetting(info[#info]) end,
                     set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
                 },
+                ["mount.emptyrandomflying"]={
+                    type="toggle",
+                    name=L["Settings.EmptyRandomFlying"],
+                    order=2,
+                    width="full",
+                    get=function (info) return BeStride:DBGetSetting(info[#info]) end,
+                    set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
+                    disabled=function(info) return not BeStride:DBGetSetting('mount.emptyrandom') end,
+                },
                 ["mount.remount"]={
                     type="toggle",
                     name=L["Settings.RemountAfterDismount"],
@@ -203,7 +212,7 @@ local optionsTable_Options = {
                 deathknight = {
                     type="group",
                     name=L["Classes.DeathKnight"],
-                    disabled = function (info) return BeStride:IsWrath() and not BeStride:IsMainline() end,
+                    disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.deathknight.wraithwalk"]={
                             type="toggle",
@@ -218,7 +227,7 @@ local optionsTable_Options = {
                 demonhunter = {
                     type="group",
                     name=L["Classes.DemonHunter"],
-                    disabled = function (info) return BeStride:IsWrath() and not BeStride:IsMainline() end,
+                    disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.demonhunter.felrush"]={
                             type="toggle",
@@ -348,7 +357,7 @@ local optionsTable_Options = {
                 monk = {
                     type="group",
                     name=L["Classes.Monk"],
-                    disabled = function (info) return BeStride:IsWrath() and not BeStride:IsMainline() end,
+                    disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.monk.roll"]={
                             type="toggle",
@@ -371,7 +380,7 @@ local optionsTable_Options = {
                 paladin = {
                     type="group",
                     name=L["Classes.Paladin"],
-                    disabled = function (info) return BeStride:IsWrath() and not BeStride:IsMainline() end,
+                    disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.paladin.steed"]={
                             type="toggle",
@@ -428,7 +437,7 @@ local optionsTable_Options = {
                 warlock = {
                     type="group",
                     name=L["Classes.Warlock"],
-                    disabled = function (info) return BeStride:IsWrath() and not BeStride:IsMainline() end,
+                    disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.warlock.rush"]={
                             type="toggle",
@@ -484,13 +493,6 @@ local optionsTable_Mounts = {
             hidden = toggleHidden, 
             args = {},
         },
-        dragonriding = {
-            name=L["GUI.TAB.Mounts.Dragonriding"],
-            type = "group",
-            order=3,
-            hidden = toggleHidden, 
-            args = {},
-        },
         swimming = {
             name=L["GUI.TAB.Mounts.Swimming"],
             type = "group",
@@ -516,10 +518,16 @@ local optionsTable_Mounts = {
 }
 
 local function generateMountTable()
-    for _,group in pairs({"ground", "flying", "dragonriding", "swimming", "repair", "passenger"}) do
+    for _,group in pairs({"ground", "flying", "swimming", "repair", "passenger"}) do
+	    print(group)
         for key,mountID in pairs(mountTable[group]) do
             local mount = mountTable.master[mountID]
             local name = mount.name
+			
+			if group == "swimming" then
+			    print(name)
+				print(mountID)
+			end
 
             options = {
                 name=name,

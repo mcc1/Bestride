@@ -21,7 +21,7 @@ BeStride_Constants = {
 		evoker = {
 			hover = 394784,
 			soar = 369536
-		},
+		}
 	},
 	Zone = {
 		Vashjir = {
@@ -156,19 +156,6 @@ BeStride_Constants = {
 				unlocks = "flying",
 				zones = {
 					[1] = "",
-				},
-			},
-			[376777] = {
-				name = "Dragonriding",
-				unlocks = "dragonriding",
-			},
-		},
-		Dragonriding = {
-			Restricted = {
-				Continents = {
-					[1978] = {
-						requires = 376777,
-					},
 				},
 			},
 		},
@@ -362,10 +349,10 @@ BeStride_Constants = {
 			[270] = "flying",
 			[284] = "chauffeured",
 			[398] = "flying",
-			[402] = "dragonriding",
+			[402] = "flying",
 			[407] = "oldflying",
 			[408] = "ground",
-			[412] = "ground",
+			[412] = "ground", --ottuks
 			[424] = "flying",
 			[428] = "flying",
 			[429] = "flying",
