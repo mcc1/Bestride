@@ -1,4 +1,5 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("BeStride")
+local LC = LOCALIZED_CLASS_NAMES_MALE
 
 local filter = ""
 
@@ -211,7 +212,7 @@ local optionsTable_Options = {
             args = {
                 deathknight = {
                     type="group",
-                    name=L["Classes.DeathKnight"],
+                    name=LC["DEATHKNIGHT"],
                     disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.deathknight.wraithwalk"]={
@@ -226,7 +227,7 @@ local optionsTable_Options = {
                 },
                 demonhunter = {
                     type="group",
-                    name=L["Classes.DemonHunter"],
+                    name=LC["DEMONHUNTER"],
                     disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.demonhunter.felrush"]={
@@ -249,7 +250,7 @@ local optionsTable_Options = {
                 },
                 druid = {
                     type="group",
-                    name=L["Classes.Druid"],
+                    name=LC["DRUID"],
                     args = {
                         ["classes.druid.traveltotravel"]={
                             type="toggle",
@@ -289,7 +290,7 @@ local optionsTable_Options = {
                 },
                 evoker = {
                     type="group",
-                    name=L["Classes.Evoker"],
+                    name=LC["EVOKER"],
                     args={
                         ["classes.evoker.hover"]={
                             type="toggle",
@@ -311,7 +312,7 @@ local optionsTable_Options = {
                 },
                 hunter = {
                     type="group",
-                    name=L["Classes.Hunter"],
+                    name=LC["HUNTER"],
                     args = {
                         ["classes.hunter.aspectofthecheetah"]={
                             type="toggle",
@@ -325,7 +326,7 @@ local optionsTable_Options = {
                 },
                 mage = {
                     type="group",
-                    name=L["Classes.Mage"],
+                    name=LC["MAGE"],
                     args = {
                         ["classes.mage.slowfall"]={
                             type="toggle",
@@ -356,7 +357,7 @@ local optionsTable_Options = {
                 },
                 monk = {
                     type="group",
-                    name=L["Classes.Monk"],
+                    name=LC["MONK"],
                     disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.monk.roll"]={
@@ -379,7 +380,7 @@ local optionsTable_Options = {
                 },
                 paladin = {
                     type="group",
-                    name=L["Classes.Paladin"],
+                    name=LC["PALADIN"],
                     disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.paladin.steed"]={
@@ -394,7 +395,7 @@ local optionsTable_Options = {
                 },
                 priest = {
                     type="group",
-                    name=L["Classes.Priest"],
+                    name=LC["PRIEST"],
                     args = {
                         ["classes.priest.levitate"]={
                             type="toggle",
@@ -408,7 +409,7 @@ local optionsTable_Options = {
                 },
                 rogue = {
                     type="group",
-                    name=L["Classes.Rogue"],
+                    name=LC["ROGUE"],
                     args = {
                         ["classes.rogue.sprint"]={
                             type="toggle",
@@ -422,7 +423,7 @@ local optionsTable_Options = {
                 },
                 shaman = {
                     type="group",
-                    name=L["Classes.Shaman"],
+                    name=LC["SHAMAN"],
                     args = {
                         ["classes.shaman.ghostwolf"]={
                             type="toggle",
@@ -436,7 +437,7 @@ local optionsTable_Options = {
                 },
                 warlock = {
                     type="group",
-                    name=L["Classes.Warlock"],
+                    name=LC["WARLOCK"],
                     disabled = function (info) return (BeStride:IsWrath() or BeStride:IsCata()) and not BeStride:IsMainline() end,
                     args = {
                         ["classes.warlock.rush"]={
