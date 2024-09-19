@@ -41,6 +41,7 @@ function BeStride:Upgrade()
 				self.db.profile.settings.mount.hasmount = value
 			elseif key == "ER" then
 				self.db.profile.settings.mount.emptyrandom = value
+				self.db.profile.settings.mount.emptyrandomflying = value
 			elseif key == "FBP" then
 				self.db.profile.settings.mount.flyingbroom = value
 			elseif key == "TTT" then
