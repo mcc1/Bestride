@@ -41,5 +41,9 @@ function BeStride:GetRidingSkill()
 end
 
 function BeStride:CanWraithWalk()
-	return true
+	return BeStride:DeathKnightCanWraithWalk()
+end
+
+function BeStride:CanDeathCharge()
+	return BeStride:DeathKnightCanDeathCharge()
 end

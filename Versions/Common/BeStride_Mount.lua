@@ -19,7 +19,7 @@ end
 function BeStride_Mount:DoMount(mounts)
 	local mount = mounts[math.random(#mounts)]
 	local spell = mountTable["master"][mount]["spellID"]
-	local name = GetSpellInfo(spell)
+	local name = BeStride:GetSpellInfo(spell).name
 	return BeStride_Mount:Mount(name)
 end
 
@@ -222,6 +222,10 @@ end
 
 function BeStride_Mount:DeathKnightWraithWalk()
 	return self:MountSpell(SpellToName(212552))
+end
+
+function BeStride_Mount:DeathKnightDeathCharge()
+	return self:MountSpell(SpellToName(444347))
 end
 
 function BeStride_Mount:DemonHunterFelRush()

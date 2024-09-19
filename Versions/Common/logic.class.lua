@@ -353,6 +353,14 @@ function BeStride:DeathKnightCanWraithWalk()
 	end
 end
 
+function BeStride:DeathKnightCanDeathCharge()
+	if BeStride:IsSpellUsable(444347) then
+		return true
+	else
+		return false
+	end
+end
+
 -- ------------------- --
 -- Demon Hunter Spells --
 -- ------------------- --
@@ -542,6 +550,18 @@ end
 function BeStride:DeathKnightWraithWalk()
 	if self:IsDeathKnight() then
 		if self:DeathKnightCanWraithWalk() and BeStride:DBGet("settings.classes.deathknight.wraithwalk") then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+function BeStride:DeathKnightDeathCharge()
+	if self:IsDeathKnight() then
+		if self:DeathKnightCanDeathCharge() and BeStride:DBGet("settings.classes.deathknight.deathcharge") then
 			return true
 		else
 			return false

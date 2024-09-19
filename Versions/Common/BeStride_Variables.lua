@@ -28,6 +28,7 @@ BeStride_Variables = {
 		Classes = {
 			{
 				["classes.deathknight.wraithwalk"]={name="classes.deathknight.wraithwalk",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.Classes.DeathKnight.WraithWalk"],class="deathknight"},
+				["classes.deathknight.deathcharge"]={name="classes.deathknight.deathcharge",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.Classes.DeathKnight.DeathCharge"],class="deathknight"},
 			},
 			{
 				["classes.demonhunter.felrush"]={name="classes.demonhunter.felrush",element="CheckBox",label=LibStub("AceLocale-3.0"):GetLocale("BeStride")["Settings.Classes.DemonHunter.FelRush"],class="demonhunter"},

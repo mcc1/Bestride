@@ -92,12 +92,12 @@ function BeStride:SetKeyBindings(button)
 	local primaryKey,secondaryKey = GetBindingKey("CLICK " .. button:GetName() .. ":LeftButton")
 	
 	if primaryKey then
-      SetBindingClick(primaryKey,button:GetName())
-    end
+	  SetBindingClick(primaryKey,button:GetName())
+	end
 	
 	if secondaryKey then
-      SetBindingClick(secondaryKey,button:GetName())
-    end
+	  SetBindingClick(secondaryKey,button:GetName())
+	end
 end
 
 function BeStride:SetKeyBindingsOverrides(button)
@@ -105,12 +105,12 @@ function BeStride:SetKeyBindingsOverrides(button)
 	
 	local primaryKey,secondaryKey = GetBindingKey(button:GetName())
 	if primaryKey then
-      SetOverrideBindingClick(button, true, primaryKey, button:GetName())
-    end
+	  SetOverrideBindingClick(button, true, primaryKey, button:GetName())
+	end
 	
 	if secondaryKey then
-      SetOverrideBindingClick(button, true, secondaryKey, button:GetName())
-    end
+	  SetOverrideBindingClick(button, true, secondaryKey, button:GetName())
+	end
 end
 
 function BeStride:ChatCommand(input)
@@ -151,7 +151,7 @@ function BeStride:ChatCommand(input)
 	elseif command == "underwater" then
 		BeStride:IsUnderwater()
 	elseif command == "mountInfo" then
-	    BeStride:PrintMount(args)
+		BeStride:PrintMount(args)
 	elseif command == "mountTypeID" then
 		mount = BeStride:ListMountTypes(args)
 	elseif command == "mountID" then
@@ -161,7 +161,7 @@ function BeStride:ChatCommand(input)
 		mount = BeStride:GetMountInfoBySpellID(args)
 		print(mount.creatureName)
 	elseif command == "mount" then
-	    BeStride:GetMountInfoByName(args)
+		BeStride:GetMountInfoByName(args)
 	elseif command == "mounts" then
 		LibStub("AceConfigDialog-3.0"):Open("BeStride-Mounts")
 	elseif command == "options" then
@@ -202,24 +202,24 @@ function BeStride:ChatCommand(input)
 		print("WoW Interface Version: " .. interface_version)
 		
 		if not C_Spell.IsSpellUsable then
-		    print("not IsSpellUsable")
+			print("not IsSpellUsable")
 		elseif C_Spell.IsSpellUsable then
-		    print("IsSpellUsable")
+			print("IsSpellUsable")
 		else
-		    print("Something failed")
+			print("Something failed")
 		end
 		
 		
 		if self:IsClassicEra() then
-		    print("Classic")
+			print("Classic")
 		elseif self:IsWrath() then
-		    print("Wrath")
+			print("Wrath")
 		elseif self:IsCata() then
-		    print("Cata")
+			print("Cata")
 		elseif self:IsMainline() then
-		    print("Mainline")
+			print("Mainline")
 		else
-		    print("Other")
+			print("Other")
 		end
 	else
 		print("/br - Open Main Configuration Dialog and print help")
@@ -240,34 +240,34 @@ function BeStride:GetMountInfoByName(mount)
 	for key,value in pairs(C_MountJournal.GetMountIDs()) do
 		local name,spellID,icon,isActive,isUsable,sourceType,isFavorite,isFactionSpecific,faction,shouldHideOnChar,isCollected,mountID,isSteadyFlight = C_MountJournal.GetMountInfoByID(value)
 		if name == mount then
-		    self:PrintMount(value)
+			self:PrintMount(value)
 		end
 	end
 end
 
 function BeStride:PrintMount(mountId)
-    local name,spellID,icon,isActive,isUsable,sourceType,isFavorite,isFactionSpecific,faction,shouldHideOnChar,isCollected,mountID,isSteadyFlight = C_MountJournal.GetMountInfoByID(mountId)
+	local name,spellID,icon,isActive,isUsable,sourceType,isFavorite,isFactionSpecific,faction,shouldHideOnChar,isCollected,mountID,isSteadyFlight = C_MountJournal.GetMountInfoByID(mountId)
 	local creatureDisplayInfoID,description,source,isSelfMount,mountTypeID,uiModelSceneID = C_MountJournal.GetMountInfoExtraByID(mountId)
 	print(name)
-	print("    mountId: " .. tostring(mountId))
-	print("    spellID: " .. tostring(spellID))
-	print("    icon: " .. tostring(icon))
-	print("    isActive: " .. tostring(isActive))
-	print("    isUsable: " .. tostring(isUsable))
-	print("    sourceType: " .. tostring(sourceType))
-	print("    isFavorite: " .. tostring(isFavorite))
-	print("    isFactionSpecific: " .. tostring(isFactionSpecific))
-	print("    faction: " .. tostring(faction))
-	print("    shouldHideOnChar: " .. tostring(shouldHideOnChar))
-	print("    isCollected: " .. tostring(isCollected))
-	print("    mountID: " .. tostring(mountID))
-	print("    isSteadyFlight: " .. tostring(isSteadyFlight))
-	print("    creatureDisplayInfoID: " .. tostring(creatureDisplayInfoID))
-	print("    description: " .. tostring(description))
-	print("    source: " .. tostring(source))
-	print("    isSelfMount: " .. tostring(isSelfMount))
-	print("    mountTypeID: " .. tostring(mountTypeID))
-	print("    uiModelSceneID: " .. tostring(uiModelSceneID))
+	print("	mountId: " .. tostring(mountId))
+	print("	spellID: " .. tostring(spellID))
+	print("	icon: " .. tostring(icon))
+	print("	isActive: " .. tostring(isActive))
+	print("	isUsable: " .. tostring(isUsable))
+	print("	sourceType: " .. tostring(sourceType))
+	print("	isFavorite: " .. tostring(isFavorite))
+	print("	isFactionSpecific: " .. tostring(isFactionSpecific))
+	print("	faction: " .. tostring(faction))
+	print("	shouldHideOnChar: " .. tostring(shouldHideOnChar))
+	print("	isCollected: " .. tostring(isCollected))
+	print("	mountID: " .. tostring(mountID))
+	print("	isSteadyFlight: " .. tostring(isSteadyFlight))
+	print("	creatureDisplayInfoID: " .. tostring(creatureDisplayInfoID))
+	print("	description: " .. tostring(description))
+	print("	source: " .. tostring(source))
+	print("	isSelfMount: " .. tostring(isSelfMount))
+	print("	mountTypeID: " .. tostring(mountTypeID))
+	print("	uiModelSceneID: " .. tostring(uiModelSceneID))
 end
 
 function BeStride:ListGameMounts()

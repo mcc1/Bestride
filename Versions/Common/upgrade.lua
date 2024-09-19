@@ -59,6 +59,7 @@ function BeStride:Upgrade()
 				self.db.profile.settings.mount.telaari = value
 			elseif key == "DEATHKNIGHT" then
 				self.db.profile.settings.classes.deathknight.wraithwalk = value
+				self.db.profile.settings.classes.deathknight.deathcharge = value
 			elseif key == "PALADIN" then
 				self.db.profile.settings.classes.paladin.steed = value
 			elseif key == "SHAMAN" then

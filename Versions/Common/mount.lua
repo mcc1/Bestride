@@ -61,9 +61,7 @@ function BeStride:Regular()
 		self:DismountAndExit()
 		return BeStride_Mount:Repair()
 	elseif IsMounted() then
-		if self:IsDragonRidingZone() then
-			return BeStride:DismountAndExit()
-		elseif IsFlying() then
+		if IsFlying() then
 			if self:IsFlyable() and BeStride:DBGet("settings.mount.nodismountwhileflying") ~= true then
 				self:DismountAndExit()
 				if BeStride:DBGet("settings.mount.remount") then
@@ -237,10 +235,17 @@ function BeStride:Combat()
 	else
 		action = ""
 	end
-	if self:IsDeathKnight() and BeStride:DBGet("settings.classes.deathknight.wraithwalk") and BeStride:CanWraithWalk() then
-		special = BeStride_Mount:DeathKnightWraithWalk()
-		if special ~= nil then
-			action = action .. special
+	if self:IsDeathKnight() and (BeStride:DBGet("settings.classes.deathknight.wraithwalk") or BeStride:DBGet("settings.classes.deathknight.deathcharge")) then
+		if BeStride:DeathKnightDeathCharge() then
+			special = BeStride_Mount:DeathKnightDeathCharge()
+			if special ~= nil then
+				action = action .. special
+			end
+		elseif BeStride:DeathKnightWraithWalk() then
+			special = BeStride_Mount:DeathKnightWraithWalk()
+			if special ~= nil then
+				action = action .. special
+			end
 		end
 	elseif self:IsDemonHunter() and self:DemonHunterFelRush() then
 		special = BeStride_Mount:DemonHunterFelRush()

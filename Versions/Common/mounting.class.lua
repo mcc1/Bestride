@@ -1,6 +1,10 @@
 function BeStride:DeathKnight()
-	if not IsFlying() and self:MovementCheck() and self:DeathKnightWraithWalk() then
-		return BeStride_Mount:DeathKnightWraithWalk()
+	if not IsFlying() and self:MovementCheck() then
+		if self:DeathKnightDeathCharge() then
+			return BeStride_Mount:DeathKnightDeathCharge()
+		elseif self:DeathKnightWraithWalk() then
+			return BeStride_Mount:DeathKnightWraithWalk()
+		end
 	else
 		BeStride_Debug:Error("This is a error.  Please report to the maintainer at https://www.github.com/dansheps/bestride/issues/. ID: DKBSL")
 	end

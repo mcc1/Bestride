@@ -43,3 +43,7 @@ end
 function BeStride:CanWraithWalk()
 	return true
 end
+
+function BeStride:CanDeathCharge()
+	return false
+end

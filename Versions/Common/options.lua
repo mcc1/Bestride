@@ -223,6 +223,14 @@ local optionsTable_Options = {
                             get=function (info) return BeStride:DBGetSetting(info[#info]) end,
                             set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
                         },
+                        ["classes.deathknight.deathcharge"]={
+                            type="toggle",
+                            name=L["Settings.Classes.DeathKnight.DeathCharge"],
+                            order=1,
+                            width="full",
+                            get=function (info) return BeStride:DBGetSetting(info[#info]) end,
+                            set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
+                        },
                     },
                 },
                 demonhunter = {
@@ -520,15 +528,15 @@ local optionsTable_Mounts = {
 
 local function generateMountTable()
     for _,group in pairs({"ground", "flying", "swimming", "repair", "passenger"}) do
-	    print(group)
+	    -- print(group)
         for key,mountID in pairs(mountTable[group]) do
             local mount = mountTable.master[mountID]
             local name = mount.name
 			
-			if group == "swimming" then
-			    print(name)
-				print(mountID)
-			end
+			-- if group == "swimming" then
+			--     print(name)
+			-- 	print(mountID)
+			-- end
 
             options = {
                 name=name,
@@ -645,13 +653,13 @@ function BeStride:OptionsTable()
 	self.configDialogs.configuration.frame,self.configDialogs.configuration.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride", "BeStride")
 
     LibStub ("AceConfig-3.0"):RegisterOptionsTable ("BeStride-Mounts", generateMountTable)
-	self.configDialogs.mounts.frame,self.configDialogs.mounts.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride-Mounts", "Mounts", "BeStride")
+	self.configDialogs.mounts.frame,self.configDialogs.mounts.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride-Mounts", L["GUI.TAB.Mounts"], "BeStride")
 
     LibStub ("AceConfig-3.0"):RegisterOptionsTable ("BeStride-Options", optionsTable_Options)
-	self.configDialogs.options.frame,self.configDialogs.options.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride-Options", "Options", "BeStride")
+	self.configDialogs.options.frame,self.configDialogs.options.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride-Options", L["GUI.Options"], "BeStride")
     
 	LibStub ("AceConfig-3.0"):RegisterOptionsTable ("BeStride-Profiles", LibStub ("AceDBOptions-3.0"):GetOptionsTable (self.db))
-	self.configDialogs.profiles.frame,self.configDialogs.profiles.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride-Profiles", "Profiles", "BeStride")
+	self.configDialogs.profiles.frame,self.configDialogs.profiles.id = LibStub ("AceConfigDialog-3.0"):AddToBlizOptions ("BeStride-Profiles", L["GUI.TAB.Profiles"], "BeStride")
 
     LibStub ("AceConfig-3.0"):RegisterOptionsTable ("BeStride-Debug", generateDebugOptions)
 end
