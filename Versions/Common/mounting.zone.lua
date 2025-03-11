@@ -7,7 +7,7 @@ function BeStride_Mount:SpecialZone()
 	
 	if continent ~= nil and continent.name == LibStub("AceLocale-3.0"):GetLocale("BeStride")["Continent.Draenor"] and micro.name == LibStub("AceLocale-3.0"):GetLocale("BeStride")["Zone.Nagrand"] and BeStride:DBGet("settings.mount.telaari") == true then
 		return BeStride_Mount:Nagrand()
-	elseif mapID == BeStride_Constants.Zone.Undermine.id and BeStride:DBGet("settings.mount.g99breakneck") == true then
+	elseif  (mapID == BeStride_Constants.Zone.Undermine.id or mapID == BeStride_Constants.Zone.Undermine.UndermineRaid.id) and BeStride:DBGet("settings.mount.g99breakneck") == true then
 		--undermine
 		return BeStride_Mount:Undermine()
 	end
