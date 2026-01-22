@@ -117,7 +117,13 @@ function BeStride:IsKnownSpecialCombatEncounter()
 		local encounterId, maybeEnablingSpellId = unpack(encounter)
 		if BeStride.encounterId == encounterId then
 			if maybeEnablingSpellId ~= nil then
-				local isProperAuraCurrentlyApplied = C_UnitAuras.GetPlayerAuraBySpellID(maybeEnablingSpellId) ~= nil
+				local aura = C_UnitAuras.GetPlayerAuraBySpellID(maybeEnablingSpellId)
+				local isSecretValue = issecretvalue
+				local canAccessValue = canaccessvalue
+				if isSecretValue and isSecretValue(aura) and (not canAccessValue or not canAccessValue(aura)) then
+					return nil
+				end
+				local isProperAuraCurrentlyApplied = aura ~= nil
 				return isProperAuraCurrentlyApplied and encounter or nil
 			else
 				-- If we're in a known encounter but there's no Spell ID required, assume we can mount I guess?

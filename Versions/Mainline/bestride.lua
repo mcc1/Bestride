@@ -95,10 +95,27 @@ function BeStride:GetMountInfoByIndex(index)
 end
 
 function BeStride:GetKnownMountFromTarget()
+    local isSecretValue = issecretvalue
+    local canAccessValue = canaccessvalue
+    local canAccessTable = canaccesstable
+
+    -- Avoid secret-value errors when aura data is restricted in 12.0+.
     for i=1,40,1 do
         local info = C_UnitAuras.GetBuffDataByIndex("target", i)
-        if not info then return end
-        local mountId = C_MountJournal.GetMountFromSpell(info.spellId)
+        if isSecretValue and isSecretValue(info) and (not canAccessValue or not canAccessValue(info)) then
+            return
+        end
+        if info == nil then return end
+        if canAccessTable and not canAccessTable(info) then
+            return
+        end
+
+        local spellId = info.spellId
+        if isSecretValue and isSecretValue(spellId) and (not canAccessValue or not canAccessValue(spellId)) then
+            return
+        end
+
+        local mountId = C_MountJournal.GetMountFromSpell(spellId)
         if mountId ~= nil then
             return self:isMountUsable(mountId)
         end
