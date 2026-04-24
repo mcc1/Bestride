@@ -113,11 +113,12 @@ function BeStride:GetSpellOnCooldown(spell)
 			end
 			return duration ~= 0
 		else
-			local onCooldown, _, _, _ = GetSpellCooldown(195072)
-			if isSecretValue and isSecretValue(onCooldown) and (not canAccessValue or not canAccessValue(onCooldown)) then
+			local fallback = C_Spell.GetSpellCooldown(195072)
+			local duration = fallback and fallback.duration or 0
+			if isSecretValue and isSecretValue(duration) and (not canAccessValue or not canAccessValue(duration)) then
 				return true
 			end
-			return onCooldown ~= 0
+			return duration ~= 0
 		end
 	elseif GetSpellCooldown then
 		local onCooldown, _, _, _ = GetSpellCooldown(195072)
