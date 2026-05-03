@@ -360,15 +360,29 @@ function BeStride:DeathKnightCanWraithWalk()
 	return self:DeathKnightHasWraithWalkTalent() and BeStride:IsSpellUsable(212552)
 end
 
-function BeStride:DeathKnightHasDeathChargeTalent()
-	-- Node 95060 is a choice node: Death's Advance vs Death Charge (Entry ID 123412)
-	-- activeEntry.entryID tells us which option is currently selected
+function BeStride:DeathKnightGetNode95060Entry()
+	-- Node 95060 is a 3-way choice: Death's Advance (base) / Death Charge (123412) / Horseman's Ride (117657)
 	local configID = C_ClassTalents.GetActiveConfigID()
-	if not configID then return false end
+	if not configID then return nil end
 	local nodeInfo = C_Traits.GetNodeInfo(configID, 95060)
-	return nodeInfo ~= nil
-		and nodeInfo.activeEntry ~= nil
-		and nodeInfo.activeEntry.entryID == 123412
+	return nodeInfo and nodeInfo.activeEntry and nodeInfo.activeEntry.entryID or nil
+end
+
+function BeStride:DeathKnightHasDeathChargeTalent()
+	return self:DeathKnightGetNode95060Entry() == 123412
+end
+
+function BeStride:DeathKnightHasHorsemanRideTalent()
+	return self:DeathKnightGetNode95060Entry() == 117657
+end
+
+function BeStride:DeathKnightHorsemanRide()
+	if self:IsDeathKnight() then
+		if self:DeathKnightHasHorsemanRideTalent() and BeStride:DBGet("settings.classes.deathknight.horsemanride") then
+			return true
+		end
+	end
+	return false
 end
 
 function BeStride:DeathKnightCanDeathCharge()

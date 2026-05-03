@@ -235,9 +235,15 @@ function BeStride:Combat()
 	else
 		action = ""
 	end
-	if self:IsDeathKnight() and (BeStride:DBGet("settings.classes.deathknight.wraithwalk") or BeStride:DBGet("settings.classes.deathknight.deathcharge")) then
-		-- Death Charge / Death's Advance takes priority; Wraith Walk only if deathcharge setting is off
-		if BeStride:DBGet("settings.classes.deathknight.deathcharge") then
+	if self:IsDeathKnight() and (BeStride:DBGet("settings.classes.deathknight.wraithwalk") or BeStride:DBGet("settings.classes.deathknight.deathcharge") or BeStride:DBGet("settings.classes.deathknight.horsemanride")) then
+		-- Horseman's Ride: mount in combat (highest priority)
+		if BeStride:DeathKnightHorsemanRide() then
+			special = BeStride_Mount:DeathKnightHorsemanRide()
+			if special ~= nil then
+				action = action .. special
+			end
+		-- Death Charge / Death's Advance takes priority over Wraith Walk
+		elseif BeStride:DBGet("settings.classes.deathknight.deathcharge") then
 			if BeStride:DeathKnightDeathCharge() then
 				special = BeStride_Mount:DeathKnightDeathCharge()
 				if special ~= nil then

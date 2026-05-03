@@ -234,7 +234,15 @@ local optionsTable_Options = {
                         ["classes.deathknight.deathcharge"]={
                             type="toggle",
                             name=L["Settings.Classes.DeathKnight.DeathCharge"],
-                            order=1,
+                            order=2,
+                            width="full",
+                            get=function (info) return BeStride:DBGetSetting(info[#info]) end,
+                            set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,
+                        },
+                        ["classes.deathknight.horsemanride"]={
+                            type="toggle",
+                            name=L["Settings.Classes.DeathKnight.HorsemanRide"],
+                            order=3,
                             width="full",
                             get=function (info) return BeStride:DBGetSetting(info[#info]) end,
                             set=function (info,val) BeStride:DBSetSetting(info[#info],val) end,

@@ -236,6 +236,13 @@ function BeStride_Mount:DeathKnightDeathsAdvance()
 	return self:MountSpell(SpellToName(48265))
 end
 
+function BeStride_Mount:DeathKnightHorsemanRide()
+	local _, spellID = C_MountJournal.GetMountInfoByID(221)
+	if spellID then
+		return self:MountSpell(SpellToName(spellID))
+	end
+end
+
 function BeStride_Mount:DemonHunterFelRush()
 	return self:MountSpell(SpellToName(195072))
 end
