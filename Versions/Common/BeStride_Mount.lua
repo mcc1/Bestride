@@ -232,6 +232,10 @@ function BeStride_Mount:DeathKnightDeathCharge()
 	return self:MountSpell(SpellToName(444347))
 end
 
+function BeStride_Mount:DeathKnightDeathsAdvance()
+	return self:MountSpell(SpellToName(48265))
+end
+
 function BeStride_Mount:DemonHunterFelRush()
 	return self:MountSpell(SpellToName(195072))
 end

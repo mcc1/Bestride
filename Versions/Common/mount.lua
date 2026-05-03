@@ -241,6 +241,11 @@ function BeStride:Combat()
 			if special ~= nil then
 				action = action .. special
 			end
+		elseif BeStride:DeathKnightDeathsAdvance() then
+			special = BeStride_Mount:DeathKnightDeathsAdvance()
+			if special ~= nil then
+				action = action .. special
+			end
 		elseif BeStride:DeathKnightWraithWalk() then
 			special = BeStride_Mount:DeathKnightWraithWalk()
 			if special ~= nil then

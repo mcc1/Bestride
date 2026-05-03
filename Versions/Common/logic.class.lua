@@ -127,11 +127,12 @@ end
 
 function BeStride:IsDeathKnightAndSpecial()
 	if self:IsDeathKnight() then
-		if not IsFlying() and not IsFalling() and self:MovementCheck() and self:DeathKnightWraithWalk() then
-			return true
-		else
-			return false
+		if not IsFlying() and not IsFalling() and self:MovementCheck() then
+			if self:DeathKnightWraithWalk() or self:DeathKnightDeathCharge() or self:DeathKnightDeathsAdvance() then
+				return true
+			end
 		end
+		return false
 	else
 		return false
 	end
@@ -353,12 +354,24 @@ function BeStride:DeathKnightCanWraithWalk()
 	end
 end
 
+function BeStride:DeathKnightHasDeathChargeTalent()
+	-- Node 95060 is a choice node: Death's Advance vs Death Charge (Entry ID 123412)
+	-- activeEntry.entryID tells us which option is currently selected
+	local configID = C_ClassTalents.GetActiveConfigID()
+	if not configID then return false end
+	local nodeInfo = C_Traits.GetNodeInfo(configID, 95060)
+	return nodeInfo ~= nil
+		and nodeInfo.activeEntry ~= nil
+		and nodeInfo.activeEntry.entryID == 123412
+end
+
 function BeStride:DeathKnightCanDeathCharge()
-	if BeStride:IsSpellUsable(444347) then
-		return true
-	else
-		return false
-	end
+	return self:DeathKnightHasDeathChargeTalent() and BeStride:IsSpellUsable(444347)
+end
+
+function BeStride:DeathKnightCanDeathsAdvance()
+	-- Only use Death's Advance when the Death Charge talent is NOT taken
+	return not self:DeathKnightHasDeathChargeTalent() and BeStride:IsSpellUsable(48265)
 end
 
 -- ------------------- --
@@ -562,6 +575,18 @@ end
 function BeStride:DeathKnightDeathCharge()
 	if self:IsDeathKnight() then
 		if self:DeathKnightCanDeathCharge() and BeStride:DBGet("settings.classes.deathknight.deathcharge") then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+
+function BeStride:DeathKnightDeathsAdvance()
+	if self:IsDeathKnight() then
+		if self:DeathKnightCanDeathsAdvance() and BeStride:DBGet("settings.classes.deathknight.deathcharge") then
 			return true
 		else
 			return false

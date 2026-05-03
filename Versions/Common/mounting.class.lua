@@ -2,6 +2,8 @@ function BeStride:DeathKnight()
 	if not IsFlying() and self:MovementCheck() then
 		if self:DeathKnightDeathCharge() then
 			return BeStride_Mount:DeathKnightDeathCharge()
+		elseif self:DeathKnightDeathsAdvance() then
+			return BeStride_Mount:DeathKnightDeathsAdvance()
 		elseif self:DeathKnightWraithWalk() then
 			return BeStride_Mount:DeathKnightWraithWalk()
 		end
