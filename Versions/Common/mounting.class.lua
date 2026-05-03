@@ -1,9 +1,12 @@
 function BeStride:DeathKnight()
 	if not IsFlying() and self:MovementCheck() then
-		if self:DeathKnightDeathCharge() then
-			return BeStride_Mount:DeathKnightDeathCharge()
-		elseif self:DeathKnightDeathsAdvance() then
-			return BeStride_Mount:DeathKnightDeathsAdvance()
+		-- Death Charge / Death's Advance takes priority; Wraith Walk only if deathcharge setting is off
+		if BeStride:DBGet("settings.classes.deathknight.deathcharge") then
+			if self:DeathKnightDeathCharge() then
+				return BeStride_Mount:DeathKnightDeathCharge()
+			elseif self:DeathKnightDeathsAdvance() then
+				return BeStride_Mount:DeathKnightDeathsAdvance()
+			end
 		elseif self:DeathKnightWraithWalk() then
 			return BeStride_Mount:DeathKnightWraithWalk()
 		end

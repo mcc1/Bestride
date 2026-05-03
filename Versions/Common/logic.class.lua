@@ -346,12 +346,18 @@ end
 -- Deathknight Spells --
 -- ------------------ --
 
+function BeStride:DeathKnightHasWraithWalkTalent()
+	-- Node 76074 is a choice node: Wraith Walk is Entry ID 133518
+	local configID = C_ClassTalents.GetActiveConfigID()
+	if not configID then return false end
+	local nodeInfo = C_Traits.GetNodeInfo(configID, 76074)
+	return nodeInfo ~= nil
+		and nodeInfo.activeEntry ~= nil
+		and nodeInfo.activeEntry.entryID == 133518
+end
+
 function BeStride:DeathKnightCanWraithWalk()
-	if BeStride:IsSpellUsable(212552) then
-		return true
-	else
-		return false
-	end
+	return self:DeathKnightHasWraithWalkTalent() and BeStride:IsSpellUsable(212552)
 end
 
 function BeStride:DeathKnightHasDeathChargeTalent()

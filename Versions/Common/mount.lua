@@ -236,15 +236,18 @@ function BeStride:Combat()
 		action = ""
 	end
 	if self:IsDeathKnight() and (BeStride:DBGet("settings.classes.deathknight.wraithwalk") or BeStride:DBGet("settings.classes.deathknight.deathcharge")) then
-		if BeStride:DeathKnightDeathCharge() then
-			special = BeStride_Mount:DeathKnightDeathCharge()
-			if special ~= nil then
-				action = action .. special
-			end
-		elseif BeStride:DeathKnightDeathsAdvance() then
-			special = BeStride_Mount:DeathKnightDeathsAdvance()
-			if special ~= nil then
-				action = action .. special
+		-- Death Charge / Death's Advance takes priority; Wraith Walk only if deathcharge setting is off
+		if BeStride:DBGet("settings.classes.deathknight.deathcharge") then
+			if BeStride:DeathKnightDeathCharge() then
+				special = BeStride_Mount:DeathKnightDeathCharge()
+				if special ~= nil then
+					action = action .. special
+				end
+			elseif BeStride:DeathKnightDeathsAdvance() then
+				special = BeStride_Mount:DeathKnightDeathsAdvance()
+				if special ~= nil then
+					action = action .. special
+				end
 			end
 		elseif BeStride:DeathKnightWraithWalk() then
 			special = BeStride_Mount:DeathKnightWraithWalk()
