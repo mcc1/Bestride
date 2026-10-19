@@ -60,6 +60,11 @@ function BeStride:OnEnable()
 
 	BeStride:RegisterEvent("ENCOUNTER_START", function(encounterId) BeStride.encounterId = encounterId end)
 	BeStride:RegisterEvent("ENCOUNTER_END", function() BeStride.encounterId = nil end)
+
+	if C_Calendar then
+		BeStride:RegisterEvent("CALENDAR_UPDATE_EVENT_LIST", "EventCalendarUpdate")
+		C_Calendar.OpenCalendar()
+	end
 	
 	BeStride:Upgrade()
 end

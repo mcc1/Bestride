@@ -178,7 +178,8 @@ function BeStride_Mount:Passenger(type)
 end
 
 function BeStride_Mount:Broom()
-	return self:Mount(ItemToName(37011))
+	local candidates = BeStride:GetBroomCandidates()
+	return self:Mount(candidates[math.random(#candidates)])
 end
 
 function BeStride_Mount:Loaned()
