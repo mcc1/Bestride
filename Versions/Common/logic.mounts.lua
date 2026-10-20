@@ -58,10 +58,11 @@ function BeStride:EventCalendarUpdate()
 	self.hallowsEndScanAt = nil
 end
 
--- Names of collected, usable broom mounts plus the Magic Broom item
+-- Names of collected, usable broom mounts plus the Magic Broom item.
+-- Mount spells can't be cast while moving even when instant; the item can.
 function BeStride:GetBroomCandidates()
 	local candidates = {}
-	if C_MountJournal then
+	if C_MountJournal and not BeStride:MovementCheck() then
 		for _, spellID in ipairs(BROOM_MOUNT_SPELLS) do
 			local mountID = C_MountJournal.GetMountFromSpell(spellID)
 			if mountID then
@@ -86,6 +87,15 @@ function BeStride:CanBroom()
 		return false
 	end
 	return #BeStride:GetBroomCandidates() > 0
+end
+
+-- Broom ahead of class movement spells: only when a fresh mount-up is
+-- possible, so mounted/falling/flying/swimming keep the normal flow
+function BeStride:CanBroomFirst()
+	if IsMounted() or IsFlying() or IsFalling() or IsSwimming() then
+		return false
+	end
+	return BeStride:CanBroom()
 end
 
 function BeStride:IsLoanedMount()

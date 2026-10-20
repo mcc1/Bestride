@@ -5,6 +5,9 @@ function BeStride:Regular()
 	elseif self:CanUseTargetsMount() then
 		self:DismountAndExit()
 		return self:UseTargetsMount()
+	-- During Hallow's End a broom is instant, so it beats class movement spells (druid forms still win)
+	elseif self:CanBroomFirst() and not self:IsDruidAndSpecial() then
+		return BeStride_Mount:Broom()
 	-- Aspect of the Cheetah is available from level 5
 	elseif self:IsHunterAndSpecial() then
 		return self:Hunter()
@@ -126,8 +129,11 @@ function BeStride:Regular()
 end
 
 function BeStride:GroundMountButton()
+	-- During Hallow's End a broom is instant, so it beats class movement spells (druid forms still win)
+	if self:CanBroomFirst() and not self:IsDruidAndSpecial() then
+		return BeStride_Mount:Broom()
 	-- Aspect of the Cheetah is available from level 5
-	if self:IsHunterAndSpecial() then
+	elseif self:IsHunterAndSpecial() then
 		return self:Hunter()
 	-- Check if we are mounted
 	elseif IsMounted() and self:NeedsChauffeur() then
